@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         count: 1,
-        pageDirection: 'fade'
+        pageDirection: 'slide-left'
     },
     mutations: {
         plus: (state) => state.count++,

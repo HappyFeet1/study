@@ -23,7 +23,7 @@ new Vue({
             let state = this.$store.state;
             const target = e.target;
             if (target.nodeName === 'A' &&
-                target.getAttribute('href').substring(0, 2) === '#/') { //点击路由链接说明激活路由
+                target.getAttribute('href').substring(0, 2) === '#/' && !/\s?\b(route-active)\s?/.test(target.className)) { //点击路由链接说明激活路由
                 state.pageDirection = 'slide-left';
             }
         })

@@ -10,6 +10,7 @@ const Foo = { template: '<div class="foo">foo</div>' }
 const Bar = { template: '<div class="bar">bar</div>' }
 
 export default new Router({
+  linkActiveClass: 'route-active',
   routes: [
     {
       path: '/',
