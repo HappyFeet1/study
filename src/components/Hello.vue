@@ -4,12 +4,14 @@
     <h2>{{count}}</h2>
     <button @click="plus()">+</button>
     <button @click="reduce()">-</button>
+    <mt-button>fsdf</mt-button>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import helloStore from '../store/modules/hello.js';
+// import helloStore from '../store/modules/hello.js';
+
 export default {
   name: 'hello',
   data() {
@@ -17,7 +19,7 @@ export default {
       msg: 'Welcome to Your Vue.js ASpp'
     }
   },
-  beforeCreate(){
+  beforeCreate() {
     // this.$store.registerModule('helloStore');
   },
   computed: {

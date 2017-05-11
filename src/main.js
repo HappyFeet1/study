@@ -5,11 +5,16 @@ import App from './App';
 import { sync } from 'vuex-router-sync';
 import router from './router';
 
+
+
 import store from './store/';
+
+import MtButton from './components/ui/button/button';
+import './components/ui/button/style.css';
+Vue.component(MtButton.name, MtButton);
 
 sync(store, router);//把路由状态放到store中
 Vue.config.productionTip = false;
-
 
 /* eslint-disable no-new */
 new Vue({
