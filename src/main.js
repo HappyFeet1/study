@@ -5,13 +5,19 @@ import App from './App';
 import { sync } from 'vuex-router-sync';
 import router from './router';
 
-
-
 import store from './store/';
+import MtButton from '@/components/ui/button/';
+import MtPopup from '@/components/ui/popup/';
+import Toast from '@/components/ui/toast/';
 
-import MtButton from './components/ui/button/button';
-import './components/ui/button/style.css';
+import '../static/style.css';
+
 Vue.component(MtButton.name, MtButton);
+Vue.component(MtPopup.name, MtPopup);
+
+
+Vue.$toast = Vue.prototype.$toast = Toast;
+
 
 sync(store, router);//把路由状态放到store中
 Vue.config.productionTip = false;
