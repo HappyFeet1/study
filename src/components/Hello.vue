@@ -18,7 +18,7 @@
     </mt-popup>
     <mt-cell title="Button" is-link to="/button"></mt-cell>
     <mt-cell title="Toast" is-link to="/toast"></mt-cell>
-    <mt-cell title="MessageBox" is-link to="/messageBox"></mt-cell>
+    <mt-cell title="Modal" is-link to="/modal"></mt-cell>
     <mt-cell title="Popup" is-link to="/popup">
       <span style="color: green">这里是元素</span>
     </mt-cell>
@@ -29,7 +29,7 @@
 import { mapState, mapMutations } from 'vuex';
 // import helloStore from '../store/modules/hello.js';
 
-import Modal from '@/ui/modal/';
+
 
 export default {
   name: 'hello',
@@ -68,29 +68,7 @@ export default {
     }
   },
   mounted(){
-    Modal({
-      // title:'是的方式大幅杀跌',
-      content:'这是内',
-      ok:function(){},
-      btns:{
-        ok2:{
-          text:'ok',
-          callback:function(){}
-        },
-        tv:{
-          text:'关闭',
-          callback:function(){
-
-          }
-        },
-        tv3:{
-          text:'关闭',
-          callback:function(){
-
-          }
-        }
-      }
-    });
+    
   }
 }
 </script>

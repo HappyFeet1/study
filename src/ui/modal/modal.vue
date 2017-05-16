@@ -40,6 +40,10 @@ export default {
         close() {
             this.remove && this.$el.parentNode.removeChild(this.$el);
             this.onclose();
+        },
+        show() {
+            this.isShow = true;
+            this.onshow();
         }
     }
 }

@@ -29,7 +29,7 @@ let showModal = function (options) {
         intInstance();
     }
 
-    var defaults = {
+    let defaults = {
         ok: false,
         okText: '确定',
         cancel: false,
@@ -70,7 +70,7 @@ showModal.show = function () {
     document.body.appendChild(instance.$el);
     instance.onshow.call(instance.$el);
     Vue.nextTick(() => {
-        instance.isShow = true;
+        instance.show();
     });
 };
 
