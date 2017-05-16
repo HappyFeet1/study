@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-      <ul>
+      <!--<ul>
         <li><router-link to="/">/home</router-link></li>
         <li><router-link to="/default">/default</router-link></li>
         <li><router-link to="/foo">/foo</router-link></li>
         <li><router-link to="/bar">/bar</router-link></li>
       </ul>
-      <p>{{pageDirection}}</p>
+      <p>{{pageDirection}}</p>-->
       <transition :name="pageDirection" @after-enter="afterEnter">
         <router-view class="child-view"></router-view>
       </transition>
@@ -45,12 +45,12 @@ export default {
 }
 .slide-left-enter, .slide-right-leave-active {
   opacity: 0;
-  -webkit-transform: translate(30px, 0);
-  transform: translate(30px, 0);
+  -webkit-transform: translate(50px, 0);
+  transform: translate(50px, 0);
 }
 .slide-left-leave-active, .slide-right-enter {
   opacity: 0;
-  -webkit-transform: translate(-30px, 0);
-  transform: translate(-30px, 0);
+  -webkit-transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
 }
 </style>

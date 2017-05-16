@@ -183,7 +183,7 @@
 }
 
 </style>
-<style src="../../../../static/popup.css"></style>
+<style src="../../../static/popup.css"></style>
 
 <script type="text/babel">
   let CONFIRM_TEXT = '确定';

@@ -19,7 +19,10 @@ export default new Router({
     },
     { path: '/default', component: Default },
     { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
+    { path: '/bar', component: Bar },
+    { path: '/button', component: resolve => require(['@/components/demo/Button'], resolve)},
+    { path: '/toast', component: resolve => require(['@/components/demo/Toast'], resolve)},
+    { path: '/messageBox', component: resolve => require(['@/components/demo/MessageBox'], resolve)},
   ],
   
 })
