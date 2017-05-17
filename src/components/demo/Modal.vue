@@ -22,11 +22,10 @@
 </style>
 
 <script type="text/babel">
-import modal from '@/ui/modal/';
 export default {
     methods: {
         openModalMulti() {
-            modal({
+            this.$modal({
                 title:'自定义多按键',
                 content: '<p style="color:red">这是内</p>',
                 ok: function () { },
@@ -51,7 +50,7 @@ export default {
             });
         },
         openModalSimple(){
-            modal({
+            this.$modal({
                 title:'温馨提示',
                 content:'你的智商只有60？',
                 okText:'是的',
@@ -61,6 +60,9 @@ export default {
                 cancel:function(){}
             });
         }
+    },
+    mounted () {
+
     }
 };
 </script>

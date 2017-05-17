@@ -1,12 +1,16 @@
 <template>
     <transition name="modal-bounce" @after-leave="close">
-        <div class="iModal-wrapper" v-show="isShow" :class="{'no-title':!title,'no-ok':!ok,'no-cancel':!cancel,emptyBtns:!Object.keys(btns).length, horizontalBtns: Object.keys(btns).length>2}">
-            <div class="iModal">
+        <div class="iModal-wrapper" v-show="isShow" :class="{'no-title':!title,'no-ok':!ok,'no-cancel':!cancel,emptyBtns:!Object.keys(btns).length, horizontalBtns: Object.keys(btns).length>2, 'modal-toast': type=='toast'&&!iconClass, 'modal-toast-center':iconClass}">
+            <div class="iModal" v-if="type=='modal'">
                 <div class="iModal-title">{{title}}</div>
                 <div class="iModal-content" v-html="content"></div>
                 <div class="iModal-btns">
                     <button v-for="(btn, key) in btns" @click="btnsEvent(btn.callback)" :class="key">{{btn.text}}</button>
                 </div>
+            </div>
+            <div class="toast" v-if="type=='toast'">
+                <i v-if="iconClass" :class="iconClass"></i>
+                <p v-html="content"></p>
             </div>
         </div>
     </transition>
@@ -28,7 +32,10 @@ export default {
             btns: {},
             remove: true,
             auto: true,
-            isShow: false
+            isShow: false,
+            iconClass:'',
+            type:'modal',
+            time: 3000
         }
     },
     methods: {
@@ -158,7 +165,24 @@ export default {
     border-radius: 4px;
     margin-bottom: 10px;
 }
-
+.iModal-wrapper.modal-toast{background:none;height:auto;top:auto;bottom:80px;text-align: center;pointer-events: none;}
+.iModal-wrapper.modal-toast-center{background: none;pointer-events: none;}
+.iModal-wrapper.modal-toast-center .toast{
+    position: absolute;
+        left: 50%;
+    top: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+    text-align: center;
+}
+.iModal-wrapper .toast{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);padding:6px 12px;border-radius:4px;opacity:1;max-width:80%;
+    -webkit-transition: .3s -webkit-transform, .3s opacity;
+    transition: .3s transform, .3s opacity;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, .7);
+}
+.iModal-wrapper.modal-toast-center .toast i{font-size: 40px;padding-bottom: 10px;display: inline-block;}
+.iModal-wrapper.modal-toast-center .toast{padding: 20px 30px;}
 
 .modal-bounce-enter,
 .modal-bounce-leave-active {
@@ -169,5 +193,11 @@ export default {
 .modal-bounce-leave-active .iModal {
     -webkit-transform: translate3d(-50%, 200%, 0);
     transform: translate3d(-50%, 200%, 0);
+}
+
+.modal-bounce-enter .toast,
+.modal-bounce-leave-active .toast{
+    opacity: 0;
+    transform: translate3d(0, 80px, 0);
 }
 </style>

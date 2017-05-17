@@ -22,7 +22,8 @@ export default new Router({
     { path: '/bar', component: Bar },
     { path: '/button', component: resolve => require(['@/components/demo/Button'], resolve)},
     { path: '/toast', component: resolve => require(['@/components/demo/Toast'], resolve)},
-    { path: '/modal', component: resolve => require(['@/components/demo/modal'], resolve)},
+    { path: '/modal', component: resolve => require(['@/components/demo/Modal'], resolve)},
+    { path: '/actionsheet', component: resolve => require(['@/components/demo/ActionSheet'], resolve)},
   ],
   
 })

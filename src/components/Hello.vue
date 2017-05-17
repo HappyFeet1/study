@@ -22,6 +22,7 @@
     <mt-cell title="Popup" is-link to="/popup">
       <span style="color: green">这里是元素</span>
     </mt-cell>
+    <mt-cell title="ActionSheet" is-link to="/actionsheet"></mt-cell>
   </div>
 </template>
 

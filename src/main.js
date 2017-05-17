@@ -10,7 +10,7 @@ import store from './store/';
 import MtButton from '@/ui/button/';
 import MtPopup from '@/ui/popup/';
 import Toast from '@/ui/toast/';
-import MessageBox from '@/ui/message-box/';
+import iModal from '@/ui/modal/';
 import Cell from '@/ui/cell/';
 import Header from '@/ui/header/';
 
@@ -23,7 +23,7 @@ Vue.component(Header.name, Header);
 
 
 Vue.$toast = Vue.prototype.$toast = Toast;
-Vue.$messageBox = Vue.prototype.$messageBox = MessageBox;
+Vue.$modal = Vue.prototype.$modal = iModal;
 
 
 sync(store, router);//把路由状态放到store中
