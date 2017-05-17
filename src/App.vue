@@ -34,14 +34,14 @@ export default {
 
 <style>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s ease;
+  transition: opacity .3s ease;
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
 }
 .child-view {
   position: absolute;
-  transition: all .4s cubic-bezier(.55,0,.1,1);
+  transition: all .3s cubic-bezier(.55,0,.1,1);
 }
 .slide-left-enter, .slide-right-leave-active {
   opacity: 0;

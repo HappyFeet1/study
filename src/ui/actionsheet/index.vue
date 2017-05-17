@@ -1,7 +1,7 @@
 <template>
     <transition name="actionsheet-float">
         <div class="actionsheet-modal" v-show="currentValue">
-            <div class="actions-lock"></div>
+            <div class="actions-lock" @click="clickModal"></div>
             <div class="mint-actionsheet">
                 <ul class="mint-actionsheet-list" :style="{ 'margin-bottom': cancelText ? '5px' : '0' }">
                     <li v-for="( item, index ) in actions" class="mint-actionsheet-listitem" @click.stop="itemClick(item, index)">{{ item.name }}</li>
@@ -96,12 +96,17 @@ export default {
             type: String,
             default: '取消'
         },
-
+        closeOnClickModal: {
+            default: true
+        },
         actions: {
             type: Array,
             default: () => []
         },
-        value: false
+        value: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
@@ -121,10 +126,18 @@ export default {
 
     methods: {
         itemClick(item, index) {
+            let preventClose;
             if (item.method && typeof item.method === 'function') {
-                item.method(item, index);
+                preventClose = item.method(item, index);
             }
-            this.currentValue = false;
+            if (preventClose !== false) {
+                this.currentValue = false;
+            }
+        },
+        clickModal() {
+            if (this.closeOnClickModal) {
+                this.currentValue = false;
+            }
         }
     },
 
