@@ -4,26 +4,23 @@ import Hello from '@/components/Hello';
 
 Vue.use(Router);
 
-
-const Default = { template: '<div class="default">default</div>' }
-const Foo = { template: '<div class="foo">foo</div>' }
-const Bar = { template: '<div class="bar">bar</div>' }
-
 export default new Router({
   linkActiveClass: 'route-active',
   routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    { path: '/default', component: Default },
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar },
+    { path: '/', name: 'Hello', component: Hello },
     { path: '/button', component: resolve => require(['@/components/demo/Button'], resolve)},
     { path: '/toast', component: resolve => require(['@/components/demo/Toast'], resolve)},
     { path: '/modal', component: resolve => require(['@/components/demo/Modal'], resolve)},
     { path: '/actionsheet', component: resolve => require(['@/components/demo/ActionSheet'], resolve)},
+    { path: '/badge', component: resolve => require(['@/components/demo/Badge'], resolve)},
+    { path: '/cell-swipe', component: resolve => require(['@/components/demo/CellSwipe'], resolve)},
+    { path: '/checklist', component: resolve => require(['@/components/demo/CheckList'], resolve)},
+    { path: '/picker', component: resolve => require(['@/components/demo/Picker'], resolve)},
+    { path: '/datetime-picker', component: resolve => require(['@/components/demo/DateTime-Picker'], resolve)},
+    { path: '/field', component: resolve => require(['@/components/demo/Field'], resolve)},
+    { path: '/index-list', component: resolve => require(['@/components/demo/IndexList'], resolve)},
+    { path: '/indicator', component: resolve => require(['@/components/demo/Indicator'], resolve)},
+    { path: '/infinite-scroll', component: resolve => require(['@/components/demo/InfiniteScroll'], resolve)},
+    { path: '/lazy-load', component: resolve => require(['@/components/demo/LazyLoad'], resolve)},
   ],
-  
 })

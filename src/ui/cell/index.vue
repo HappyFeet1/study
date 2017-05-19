@@ -65,6 +65,9 @@ export default {
   },
   computed: {
     href() {
+      if(!this.isLink){
+        return 'javascript:;';
+      }
       if (this.to && !this.added && this.$router) {
         const resolved = this.$router.match(this.to);
         if (!resolved.matched.length) return this.to;
@@ -87,6 +90,9 @@ export default {
       $event.preventDefault();
       this.$router.push(this.href);
     }
+  },
+  mounted () {
+
   }
 };
 </script>

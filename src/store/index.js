@@ -6,13 +6,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         count: 1,
-        pageDirection: 'slide-left'
+        pageDirection: 'fade',
+        routeChain:[]
     },
     mutations: {
-        plus: (state) => state.count++,
-        reduce: (state) => state.count--,
-        afterEnter: (state) => {
-            state.pageDirection = 'slide-right';
+        addRouteChain(state, route){
+            state.routeChain.push(route);
+        },
+        popRouteChain(state){
+            state.routeChain.pop();
+        },
+        setPageDirection(state, dir){
+            state.pageDirection = dir;
         }
     }
 });

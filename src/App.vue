@@ -1,13 +1,6 @@
 <template>
   <div id="app">
-      <!--<ul>
-        <li><router-link to="/">/home</router-link></li>
-        <li><router-link to="/default">/default</router-link></li>
-        <li><router-link to="/foo">/foo</router-link></li>
-        <li><router-link to="/bar">/bar</router-link></li>
-      </ul>
-      <p>{{pageDirection}}</p>-->
-      <transition :name="pageDirection" @after-enter="afterEnter">
+      <transition :name="pageDirection">
         <router-view class="child-view"></router-view>
       </transition>
   </div>
@@ -17,16 +10,10 @@ import {mapState, mapMutations} from 'vuex';
 export default {
   name: 'app',
   created(){
-    console.log(this);
   },
   computed:{
     ...mapState([
       'pageDirection'
-    ])
-  },
-  methods:{
-    ...mapMutations([
-      'afterEnter'
     ])
   }
 }
@@ -40,7 +27,6 @@ export default {
   opacity: 0
 }
 .child-view {
-  position: absolute;
   transition: all .3s cubic-bezier(.55,0,.1,1);
 }
 .slide-left-enter, .slide-right-leave-active {
@@ -53,4 +39,6 @@ export default {
   -webkit-transform: translate(-50px, 0);
   transform: translate(-50px, 0);
 }
+.slide-right-leave-active,
+.slide-left-enter-active{position: absolute;}
 </style>

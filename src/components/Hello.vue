@@ -1,9 +1,7 @@
 <template>
   <div class="hello">
     <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
-      <router-link to="/" slot="left">
-        <mt-button icon="back">返回</mt-button>
-      </router-link>
+      
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     <!--<h1>{{ msg }}</h1>
@@ -19,10 +17,18 @@
     <mt-cell title="Button" is-link to="/button"></mt-cell>
     <mt-cell title="Toast" is-link to="/toast"></mt-cell>
     <mt-cell title="Modal" is-link to="/modal"></mt-cell>
-    <mt-cell title="Popup" is-link to="/popup">
-      <span style="color: green">这里是元素</span>
-    </mt-cell>
+    <mt-cell title="Popup" is-link to="/popup"><span style="color: green">这里是元素</span></mt-cell>
     <mt-cell title="ActionSheet" is-link to="/actionsheet"></mt-cell>
+    <mt-cell title="Badge" is-link to="/badge"></mt-cell>
+    <mt-cell title="CellSwipe" is-link to="/cell-swipe"></mt-cell>
+    <mt-cell title="CheckList" is-link to="/checklist"></mt-cell>
+    <mt-cell title="Picker" is-link to="/picker"></mt-cell>
+    <mt-cell title="DateTime-Picker" is-link to="/datetime-picker"></mt-cell>
+    <mt-cell title="Field" is-link to="/field"></mt-cell>
+    <mt-cell title="Index-List" is-link to="/index-list"></mt-cell>
+    <mt-cell title="Indicator" is-link to="/indicator"></mt-cell>
+    <mt-cell title="InfiniteScroll" is-link to="/infinite-scroll"></mt-cell>
+    <mt-cell title="LazyLoad" is-link to="/lazy-load"></mt-cell>
   </div>
 </template>
 

@@ -1,14 +1,17 @@
 <template>
     <div class="container">
         <mt-header title="Modal">
-            <router-link to="/" slot="left">
-                <mt-button icon="back"></mt-button>
-            </router-link>
+            <div slot="left">
+                <mt-button icon="back" @click="$router.back()">返回</mt-button>
+            </div>
         </mt-header>
         <div class="page-msgbox-wrapper">
             <mt-button @click.native="openModalSimple" size="large">打开</mt-button>
             <mt-button @click.native="openModalMulti" size="large">打开 自定义多按键</mt-button>
         </div>
+        <router-link to="/field" slot="left">
+                <mt-button icon="back">Field</mt-button>
+        </router-link>
     </div>
 </template>
 <style>

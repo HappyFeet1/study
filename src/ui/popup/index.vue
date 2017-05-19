@@ -8,13 +8,13 @@
 
 <style>
 .v-modal-enter {
-  -webkit-animation: v-modal-in .2s ease;
-          animation: v-modal-in .2s ease;
+  -webkit-animation: v-modal-in .3s ease;
+          animation: v-modal-in .3s ease;
 }
 
 .v-modal-leave {
-  -webkit-animation: v-modal-out .2s ease forwards;
-          animation: v-modal-out .2s ease forwards;
+  -webkit-animation: v-modal-out .3s ease forwards;
+          animation: v-modal-out .3s ease forwards;
 }
 
 @-webkit-keyframes v-modal-in {
@@ -138,7 +138,7 @@
       },
 
       modalFade: {
-        default: false
+        default: true
       },
 
       lockScroll: {
