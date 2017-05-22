@@ -29,6 +29,15 @@
     <mt-cell title="Indicator" is-link to="/indicator"></mt-cell>
     <mt-cell title="InfiniteScroll" is-link to="/infinite-scroll"></mt-cell>
     <mt-cell title="LazyLoad" is-link to="/lazy-load"></mt-cell>
+    <mt-cell title="Loadmore" is-link to="/loadmore"></mt-cell>
+    <mt-cell title="Navbar" is-link to="/navbar"></mt-cell>
+    <mt-cell title="Progress" is-link to="/progress"></mt-cell>
+    <mt-cell title="Radio" is-link to="/radio"></mt-cell>
+    <mt-cell title="Range" is-link to="/range"></mt-cell>
+    <mt-cell title="Search" is-link to="/search"></mt-cell>
+    <mt-cell title="Swipe" is-link to="/swipe"></mt-cell>
+    <mt-cell title="Switch" is-link to="/switch"></mt-cell>
+    <mt-cell title="Tabbar" is-link to="/tabbar"></mt-cell>
   </div>
 </template>
 
