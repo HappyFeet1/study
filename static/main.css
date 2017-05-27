@@ -1,0 +1,22 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,header,hgroup,nav,section,article,aside,footer,figure,figcaption,menu,button{margin:0;padding:0;}
+body{font:14px/1.5 Helvetica,STHeiti STXihei,Microsoft YaHei,Arial;color:#333;-webkit-user-select:none;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(255,255,255,0);outline:0;background:#eee;min-width:320px;max-width:640px;margin-left:auto;margin-right:auto;}
+[ms-controller]{visibility:hidden;}
+*{-webkit-box-sizing:border-box;box-sizing:border-box;}
+img{vertical-align:top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:normal;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+ol,ul,li{list-style:none;}
+input,button,textarea,select{border:none;background:none;-webkit-appearance:none;outline:none;}
+input[type="tel"],input[type="text"],input[type="password"],input[type="buttom"],textarea{resize:none;display:block;width:100%;}
+button:focus,input:focus,select:focus,textarea:focus{outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+a,a:visited{-webkit-touch-callout:none;text-decoration:none;outline:0;color:#333;}
+.cRed,.cRed:visited{color:#FF0042!important;}
+.cGold,.cGold:visited{color:#CD9245}
+.cBlue,.cBlue:visited{color: #3879D9;}
+.cGreen,.cGreen:visited{color: #00A20D;}
+.cGray,.cGray:visited{color:#aaa}
+em,i{font-style:normal;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.icon{background-image:url(http://static.hehenian.com/m/v4/images/icons.png);
+    -webkit-background-size:100px auto;background-size:100px auto;background-repeat:no-repeat;display: inline-block;}
