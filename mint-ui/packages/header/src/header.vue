@@ -44,7 +44,7 @@ export default {
   @component-namespace mint {
     @component header {
       align-items: center;
-      background-color: $color-blue;
+      background-color: $color-gold;
       box-sizing: border-box;
       color: $color-white;
       display: flex;

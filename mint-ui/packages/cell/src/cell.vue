@@ -102,8 +102,10 @@ export default {
       overflow: hidden;
       position: relative;
       text-decoration: none;
+      
 
       &:first-child {
+        border-top: 1px solid #eee;
         .mint-cell-wrapper {
           background-origin: border-box;
         }
@@ -114,6 +116,10 @@ export default {
         background-size: 100% 1px;
         background-repeat: no-repeat;
         background-position: bottom;
+        border-bottom: 1px solid #eee;
+        .mint-cell-wrapper{
+          border-bottom:none;
+        }
       }
 
       @descendent wrapper {
@@ -129,8 +135,10 @@ export default {
         line-height: 1;
         min-height: inherit;
         overflow: hidden;
-        padding: 0 10px;
+        margin-left: 10px;
+        padding-right: 10px;
         width: 100%;
+        border-bottom: 1px solid #eee;
       }
 
       @descendent mask {

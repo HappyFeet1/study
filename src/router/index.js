@@ -15,7 +15,8 @@ const router = new Router({
         {path:'/product', name:'product', component: resolve => require(['@/pages/product'],resolve)},
         {path:'/mine', name:'mine', component: resolve => require(['@/pages/mine'],resolve)},
       ]
-    }
+    },
+    {path:'/login', name:'login', component: resolve => require(['@/pages/login'],resolve)},
   ]
 });
 export default router;

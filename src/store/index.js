@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import utils from '../../static/js/utils';
+
 export default new Vuex.Store({
     state: {
-        count: 1,
+        channel: parseInt(utils.getCookie('channel')),
         pageDirection: 'fade',
         routeChain:[]
     },

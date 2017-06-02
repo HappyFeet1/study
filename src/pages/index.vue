@@ -118,9 +118,7 @@ import 'mint-ui/lib/swipe-item/style.css';
 import Swipe from 'mint-ui/lib/swipe/';
 import SwipeItem from 'mint-ui/lib/swipe-item/';
 import { mapState, mapMutations } from 'vuex';
-
 import IndexModule from '@/store/modules/index.js';
-
 export default {
     components: {
         'mt-swipe':Swipe,

@@ -7,10 +7,32 @@ import axios from 'axios';
 
 import store from './store/';
 import '../static/main.css';
+import utils from '../static/js/utils';
 
-// axios.defaults.baseURL = 'http://m.hehenian.com';
-Vue.config.productionTip = false;
+import modal from 'mint-ui/lib/modal/';
+
+axios.defaults.baseURL = 'http://m.hehenian.com';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+let serializer = (obj = {}) => {
+  var param = [];
+  for (let key in obj) {
+    param.push(key + '=' + obj[key]);
+  }
+  return param.join('&');
+}
+
+axios.interceptors.request.use((config) => {
+  config.data = serializer(config.data);
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
 Vue.$axios = Vue.prototype.$axios = axios;
+Vue.$modal = Vue.prototype.$modal = modal;
+
+Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
   //定义一个可以记录路由路径变化的数据，这里用在vuex，其实也可以用sessionStorage,或者在window.routeChain等变量
@@ -41,6 +63,19 @@ router.beforeEach((to, from, next) => {
   }
   next();
 });
+
+Vue.filter('formatNumber', function (num, fix) {
+  num = Number(num);
+  num = num ? num : 0;
+  if (typeof num !== 'number') return num;
+  num = fix ? parseFloat(num).toFixed(2) : num;
+  num = num + '';
+  var rgx = /(\d+)(\d{3})/g;
+  while (rgx.test(num)) {
+    num = num.replace(rgx, '$1' + ',' + '$2');
+  }
+  return num;
+})
 
 /* eslint-disable no-new */
 new Vue({

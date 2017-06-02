@@ -6,7 +6,24 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
 import { mapState, mapMutations } from 'vuex';
+import Header from 'mint-ui/lib/header/';
+import 'mint-ui/lib/header/style.css';
+
+import Button from 'mint-ui/lib/button/';
+import 'mint-ui/lib/button/style.css';
+
+import Toast from 'mint-ui/lib/toast/';
+import 'mint-ui/lib/toast/style.css';
+
+
+Vue.component( Header.name, Header );
+Vue.component( Button.name, Button );
+
+Vue.toast = Vue.prototype.toast = Toast;
+
+
 export default {
   name: 'app',
   created() {
@@ -40,6 +57,7 @@ body,
   background: #fff;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  background-color: #f2f2f2;
 }
 
 .fade-enter-active,

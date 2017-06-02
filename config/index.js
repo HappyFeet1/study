@@ -16,7 +16,7 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
     // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
+    // View the bundle analyzer report after build finishes: 
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
@@ -24,18 +24,19 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8080,
-    autoOpenBrowser: true,
+    autoOpenBrowser: false,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '*': {
-        target: 'http://m.hehenian.com',
-        changeOrigin: true,
-        filter: function (pathname, req) {
-          return pathname.indexOf('.do') > -1;
-        }
-      }
-    },
+    proxyTable:{},
+    // proxyTable: {
+    //   '*': {
+    //     target: 'http://m.hehenian.com',
+    //     changeOrigin: true,
+    //     filter: function (pathname, req) {
+    //       return pathname.indexOf('.do') > -1;
+    //     }
+    //   }
+    // },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
