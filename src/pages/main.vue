@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <router-view class="child-view"></router-view>
-        <mt-tabbar v-model="selected" fixed>
+        <mt-tabbar v-model="selected" fixed v-show="$store.state.mainTabbarVisible">
             <mt-tab-item id="index" @click.native="go()">
                 <i slot="icon" class="icon icon-home"></i>
                 首页
             </mt-tab-item>
-            <mt-tab-item id="product" @click.native="go()">
+            <mt-tab-item id="project" @click.native="go()">
                 <i slot="icon" class="icon icon-product"></i>
                 理财
             </mt-tab-item>

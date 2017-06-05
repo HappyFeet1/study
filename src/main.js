@@ -9,7 +9,7 @@ import store from './store/';
 import '../static/main.css';
 import utils from '../static/js/utils';
 
-import modal from 'mint-ui/lib/modal/';
+import modal from '@/components/modal/';
 
 axios.defaults.baseURL = 'http://m.hehenian.com';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

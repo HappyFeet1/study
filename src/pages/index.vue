@@ -1,5 +1,5 @@
 <template>
-<div class="container index-container">
+<div class="index-container">
     <div class="top-nav">
         <a href="#!/message/4" class="icon icon-msg"></a>
         <h1>钱生花</h1>
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style>
-.index-container{background: #eee;padding-bottom: 65px;}
+
 .top-nav{height:44px;line-height:44px;position:relative;color:#000;text-align:center;font-size:18px;background:#fff;border-bottom:1px solid #DCDCDC;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;padding:0 10px;}
 .top-nav .icon{display:block;width:25px;height:25px;}
 .top-nav .icon-msg{background-position:-50px 0;left:10px;}

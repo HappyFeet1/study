@@ -5,6 +5,7 @@ import utils from '../../static/js/utils';
 
 export default new Vuex.Store({
     state: {
+        mainTabbarVisible:true,
         channel: parseInt(utils.getCookie('channel')),
         pageDirection: 'fade',
         routeChain:[]

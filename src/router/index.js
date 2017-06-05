@@ -12,7 +12,7 @@ const router = new Router({
       component: Home,
       children:[
         {path:'',component: resolve => require(['@/pages/index'],resolve)},
-        {path:'/product', name:'product', component: resolve => require(['@/pages/product'],resolve)},
+        {path:'/project', name:'project', component: resolve => require(['@/pages/project'],resolve)},
         {path:'/mine', name:'mine', component: resolve => require(['@/pages/mine'],resolve)},
       ]
     },
