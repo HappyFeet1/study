@@ -1,9 +1,7 @@
 <template>
     <div class="index-container">
         <mt-header title="项目列表">
-            <a href="javascript:;" @click="$router.back()" slot="left">
-                <mt-button icon="back">返回</mt-button>
-            </a>
+    
         </mt-header>
         <div class="filter_items">
             <div class="filter_item" @click="timeToggle()">
@@ -33,8 +31,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="product_list" v-infinite-scroll="syncDate" infinite-scroll-disabled="loading" infinite-scroll-distance="100">
+    
+        <div class="product_list" v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <div v-for="item in loadData" class="product_item product_item_insert">
                 <router-link :to="item.status==1?'project/'+item.projectId:''">
                     <div class="product_title" :class="{'product_title_aft':item.status!=1}">
@@ -49,7 +47,9 @@
                     <div class="product_inner">
                         <div class="inner_item">
                             <div class="inner_rate">
-                                <p>{{item.rate}}<i>%</i></p>
+                                <p>{{item.rate}}
+                                    <i>%</i>
+                                </p>
                                 <p>预期年化收益率</p>
                             </div>
                             <div class="inner_rate inner_rate2">
@@ -80,7 +80,7 @@
                 </router-link>
             </div>
         </div>
-
+    
         <div class="page-infinite-loading">
             <p v-if="loading===true" class="page-infinite-loading">
                 <mt-spinner type="double-bounce"></mt-spinner>
@@ -107,8 +107,6 @@
     </div>
 </template>
 <script>
-import Project from '@/store/modules/project';
-import { mapState, mapMutations,mapActions } from 'vuex';
 import InfiniteScroll from 'mint-ui/lib/infinite-scroll/';
 import Spinner from 'mint-ui/lib/spinner/';
 
@@ -127,6 +125,8 @@ export default {
             statusValue: 0,
             timeText: '全部',
             statusText: '全部',
+            loadData: [],
+            loading: false,
             timeData: {
                 '全部': 0,
                 '24个月': 24,
@@ -141,8 +141,16 @@ export default {
                 '融资中': 1,
                 '已完成': 2
             },
-            sortName:'creatTime',
-            sortOrder: 'desc'
+            sortName: 'creatTime',
+            sortOrder: 'desc',
+            filterRequest: {
+                pageSize: 5,
+                sortName: this.sortName,
+                status: this.statusValue || '',
+                period: this.timeValue || '',
+                sortOrder: this.sortOrder,
+                pageNo: 1
+            }
         }
     },
     computed: {
@@ -157,21 +165,7 @@ export default {
                 flex: 1,
                 values: Object.keys(this.statusData)
             }]
-        },
-        filterRequest(){
-            return {
-                pageSize:5,
-                pageNo:1,
-                sortName: this.sortName,
-                status: this.statusValue||'',
-                period: this.timeValue||'',
-                sortOrder: this.sortOrder
-            }
-        },
-        ...mapState('Project',[
-            'loadData',
-            'loading'
-        ])
+        }
     },
     watch: {
         'timeFilterVisible': function (val) {
@@ -179,18 +173,23 @@ export default {
         },
         'statusFilterVisible': function (val) {
             this.$store.state.mainTabbarVisible = !val;
+        },
+        'timeValue': function (val) {
+            this.filterRequest.period = val ? val : '';
+            this.refresh();
+        },
+        'statusValue': function (val) {
+            this.filterRequest.status = val ? val : '';
+            this.refresh();
         }
     },
     methods: {
-        ...mapActions('Project',[
-            'syncDate'
-        ]),
-        ...mapMutations('Project',[
-            'setParams',
-            'clearData'
-        ]),
         timeToggle() {
             this.timeFilterVisible = !this.timeFilterVisible;
+        },
+        clearData() {
+            this.filterRequest.pageNo = 1;
+            this.loadData = [];
         },
         statusToggle() {
             this.statusFilterVisible = !this.statusFilterVisible;
@@ -205,34 +204,57 @@ export default {
             this.statusText = values[0];
             this.statusValue = this.statusData[this.statusText];
         },
-        parseMoneyHelper(str){
-            if( parseFloat(str) > 9999 ) {
-                return (parseInt(str/10000).toFixed(2)+'').replace(/\.00/,'') + '万';
+        parseMoneyHelper(str) {
+            if (parseFloat(str) > 9999) {
+                return (parseInt(str / 10000).toFixed(2) + '').replace(/\.00/, '') + '万';
             }
-            return str;  
+            return str;
         },
-        syncFilter(sortName){
+        syncFilter(sortName) {
             var sort;
-            if(this.sortName != sortName){
+            if (this.sortName != sortName) {
                 sort = 'desc';
-            }else{
-                sort =  this.sortOrder=='asc'?'desc':'asc'
+            } else {
+                sort = this.sortOrder == 'asc' ? 'desc' : 'asc'
             }
 
             this.filterRequest.sortName = sortName;
             this.filterRequest.sortOrder = sort;
-            this.filterRequest.status = this.statusValue||'';
-            this.filterRequest.period = this.timeValue||'';
+            this.filterRequest.status = this.statusValue || '';
+            this.filterRequest.period = this.timeValue || '';
 
             this.sortName = sortName;
             this.sortOrder = sort;
 
             this.refresh();
         },
-        refresh(){
-            this.setParams(this.filterRequest);
+        refresh() {
+            this.loading = false;
             this.clearData();
-            this.syncDate();
+            this.syncData();
+        },
+        syncData: function () {
+            if (this.loading) return;
+            this.loading = true;
+            this.$axios.get('/api/queryProjectList.do', { params: this.filterRequest })
+                .then(res => {
+                    setTimeout(() => {
+                        var data = res.data.data;
+                        if (this.filterRequest.pageNo === 1 && !data.length) {
+                            this.loading = -2;//没有查询结果
+                        } else if (this.filterRequest.pageNo > 1 && !data.length) {
+                            this.loading = -1;//没有更多了
+                        } else {
+                            var arr = this.loadData;
+                            this.loading = false;
+                            this.loadData = arr.concat(data);
+                            this.filterRequest.pageNo++;
+                        }
+                    }, this.pageNo > 1 ? 1500 : 0);
+                })
+                .catch(e => {
+                    console.log(e)
+                })
         }
     },
     components: {
@@ -240,12 +262,11 @@ export default {
         'mt-picker': Picker,
         'mt-spinner': Spinner
     },
-    beforeMount () {
-         this.$store.registerModule('Project', Project);
-         this.$store.commit('Project/setParams',this.filterRequest);
+    beforeMount() {
+
     },
     destroyed() {
-        this.$store.unregisterModule('Project');
+
     }
 }
 </script>
@@ -301,7 +322,6 @@ export default {
     border-bottom: 1px solid #cccccc;
     padding: 15px 0px;
     font-size: 14px;
-    
 }
 
 .filter_bd {
@@ -371,36 +391,191 @@ export default {
     border-color: transparent transparent #b7761c;
 }
 
-.product_list {position: relative; margin-top: 10px;}
-	.product_title {color: #757575; line-height: 24px;position: relative; padding:15px 0px;padding-left: 15px; border-top: 1px solid #ccc;border-bottom: 1px solid #ccc; }
-		.debt_money { float: right;margin-right: 15px;font-size: 13px;  }
-		.debt_num { float: right;margin-right: 30px;font-size: 13px; }
-		.debt_text { color: #e09423;font-size: 15px; }
-		.debt_org { color: #ef702c; }
-	.product_inner { border-bottom: 1px solid #ccc; }
-	.product_item { margin-bottom: 5px; background: #fff;  }
-  .product_item > a{display: block;}
-	.product_item:last-child { margin-bottom: 0px; }
-	.inner_item > div { -webkit-box-flex: 1;-webkit-flex: 1;flex: 1; }
-	.inner_item {padding: 20px 0px; white-space:break-all;display: -webkit-box;display: -webkit-flex;display: flex;position: relative;}
-	.inner_process { position: relative;    display: block;display: -webkit-box;display: -webkit-flex;display: flex;-webkit-box-align: center;-webkit-align-items: center;align-items: center; }
-	.circleProgress_wrapper {margin: 0 auto;position: relative; width: 60px;height: 60px;border: 5px solid #e0e0e0; border-radius: 60px; }
-		.cl_wrapper{width: 30px;height: 60px;position: absolute;top:-5px;overflow: hidden;}
-		.cl_wrapper_right{right:-5px;}
-		.cl_wrapper_left{left:-5px;}
-		.circleProgress{ width: 60px;height: 60px;border:5px solid transparent;border-radius: 50%;position: absolute;top:0;}
-		.rightcircle{ border-top:5px solid #e09423;border-right:5px solid #e09423;right:0;-webkit-transform: rotate(-135deg);-webkit-transition: transform 1s;}
-		.leftcircle {   border-bottom:5px solid #e09423;border-left:5px solid #e09423;left:0;-webkit-transform: rotate(-135deg); -webkit-transition: transform 1s;-webkit-transition-delay:.9s;}
-		.progress_num {display: block;width: 60px;text-align: center; position: absolute;left:50%;top: 50%;transform: translate(-50%, -50%);color: #e09423; -webkit-transform: translate(-50%, -50%); }
-		.progress_num_end { color: #9e9e9e;font-size: 13px; }
-		.inner_rate { padding-left: 15px; }
-		.inner_rate.inner_rate2 {box-sizing: border-box; text-align: left; padding-left: 15px;}
-		.inner_rate p:first-child { font-size: 30px; color: #e5a035;}
-		.inner_rate p:last-child { color: #757575;font-size: 12px; }
-		.inner_rate p:first-child i { font-size: 15px; color:#e5a035;}
-		.inner_info { margin-left: -10px; }
-		.inner_info p { color: #5d5c5c;line-height: 22px;font-size: 13px; }
-		.inner_info p:nth-of-type(1) { color: #ef702c; }
+.product_list {
+    position: relative;
+    margin-top: 10px;
+}
+
+.product_title {
+    color: #757575;
+    line-height: 24px;
+    position: relative;
+    padding: 15px 0px;
+    padding-left: 15px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.debt_money {
+    float: right;
+    margin-right: 15px;
+    font-size: 13px;
+}
+
+.debt_num {
+    float: right;
+    margin-right: 30px;
+    font-size: 13px;
+}
+
+.debt_text {
+    color: #e09423;
+    font-size: 15px;
+}
+
+.debt_org {
+    color: #ef702c;
+}
+
+.product_inner {
+    border-bottom: 1px solid #ccc;
+}
+
+.product_item {
+    margin-bottom: 5px;
+    background: #fff;
+}
+
+.product_item>a {
+    display: block;
+}
+
+.product_item:last-child {
+    margin-bottom: 0px;
+}
+
+.inner_item>div {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.inner_item {
+    padding: 20px 0px;
+    white-space: break-all;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+}
+
+.inner_process {
+    position: relative;
+    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.circleProgress_wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: 5px solid #e0e0e0;
+    border-radius: 60px;
+}
+
+.cl_wrapper {
+    width: 30px;
+    height: 60px;
+    position: absolute;
+    top: -5px;
+    overflow: hidden;
+}
+
+.cl_wrapper_right {
+    right: -5px;
+}
+
+.cl_wrapper_left {
+    left: -5px;
+}
+
+.circleProgress {
+    width: 60px;
+    height: 60px;
+    border: 5px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+}
+
+.rightcircle {
+    border-top: 5px solid #e09423;
+    border-right: 5px solid #e09423;
+    right: 0;
+    -webkit-transform: rotate(-135deg);
+    -webkit-transition: transform 1s;
+}
+
+.leftcircle {
+    border-bottom: 5px solid #e09423;
+    border-left: 5px solid #e09423;
+    left: 0;
+    -webkit-transform: rotate(-135deg);
+    -webkit-transition: transform 1s;
+    -webkit-transition-delay: .9s;
+}
+
+.progress_num {
+    display: block;
+    width: 60px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #e09423;
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.progress_num_end {
+    color: #9e9e9e;
+    font-size: 13px;
+}
+
+.inner_rate {
+    padding-left: 15px;
+}
+
+.inner_rate.inner_rate2 {
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.inner_rate p:first-child {
+    font-size: 30px;
+    color: #e5a035;
+}
+
+.inner_rate p:last-child {
+    color: #757575;
+    font-size: 12px;
+}
+
+.inner_rate p:first-child i {
+    font-size: 15px;
+    color: #e5a035;
+}
+
+.inner_info {
+    margin-left: -10px;
+}
+
+.inner_info p {
+    color: #5d5c5c;
+    line-height: 22px;
+    font-size: 13px;
+}
+
+.inner_info p:nth-of-type(1) {
+    color: #ef702c;
+}
 
 .mint-popup {
     width: 100%;
@@ -418,16 +593,16 @@ export default {
     backface-visibility: hidden;
 }
 
-.page-infinite-loading{
-            text-align: center;
-        height: 50px;
-        line-height: 50px;
-        background-color:#fff;
-        
+.page-infinite-loading {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
 }
-.page-infinite-loading div{
-            display: inline-block;
-          vertical-align: middle;
-          margin-right: 5px;
-        }
+
+.page-infinite-loading div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
 </style>

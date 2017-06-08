@@ -11,7 +11,7 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    background-color: #B68E50;
+    background-color: #26a2ff;
     box-sizing: border-box;
     color: #fff;
     display: -webkit-box;
@@ -126,12 +126,12 @@
 }
 .mint-button--primary {
     color: #fff;
-    background-color: #B68E50
+    background-color: #26a2ff
 }
 .mint-button--primary.is-plain {
-    border: 1px solid #B68E50;
+    border: 1px solid #26a2ff;
     background-color: transparent;
-    color: #B68E50
+    color: #26a2ff
 }
 .mint-button--danger {
     color: #fff;
@@ -178,9 +178,6 @@
 .mint-cell img {
     vertical-align:middle;
 }
-.mint-cell:first-child {
-    border-top:1px solid #eee;
-}
 .mint-cell:first-child .mint-cell-wrapper {
     background-origin:border-box;
 }
@@ -189,10 +186,6 @@
     background-size:100% 1px;
     background-repeat:no-repeat;
     background-position:bottom;
-    border-bottom:1px solid #eee;
-}
-.mint-cell:last-child .mint-cell-wrapper {
-    border-bottom:none;
 }
 .mint-cell-wrapper {
     background-image:linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
@@ -211,10 +204,8 @@
     line-height: 1;
     min-height: inherit;
     overflow: hidden;
-    margin-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px;
     width: 100%;
-    border-bottom: 1px solid #eee;
 }
 .mint-cell-mask {}
 .mint-cell-mask::after {
@@ -854,7 +845,7 @@ display: inline-block;
 }
 .mint-tabbar > .mint-tab-item.is-selected {
     background-color: #eaeaea;
-    color: #B68E50;
+    color: #26a2ff;
 }
 .mint-tabbar.is-fixed {
     right: 0;

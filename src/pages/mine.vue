@@ -1,7 +1,7 @@
 <template>
     <div class="mine">
         <div class="info-pannel">
-            <a class="link" href="javascript:history.go(-1);">返回</a>
+            <!--<a class="link" href="javascript:history.go(-1);">返回</a>-->
             <h2 class="title">我的账户</h2>
             <a class="total" href="#!/overview/asset">
                 <h3>我的总资产(元)
@@ -60,7 +60,7 @@
                     <i class="icon icon-award"></i>
                     <p>理财师奖励</p>
                 </a>
-                <a href="#!/setting">
+                <a href="#/setting">
                     <i class="icon icon-setting"></i>
                     <p>设置</p>
                 </a>
@@ -124,12 +124,18 @@ export default {
     data() {
         return {
             hide: (localHide === '****' || localHide === null) ? '****' : false,
+            data: {
+                totalAssets: '',
+                totalInteres: '',
+                yesterdayInteres: '',
+                balance: '',
+                chinaPNRBalance: '',
+                redeemData: {},
+                income: ''
+            }
         }
     },
     computed: {
-        ...mapState('Mine', {
-            data: state => state.data
-        }),
         ...mapState([
             'channel'
         ])
@@ -156,26 +162,43 @@ export default {
                     })
                 }
             });
+        },
+        syncDate: function () {
+            this.$axios.get('/api/mineAccount.do')
+                .then(res => {
+                    if(res.data.code===-10000||res.request.responseURL.indexOf('login/index.do') > -1){
+                        setTimeout(() => {
+                            this.$router.push({ name: 'login' })
+                        }, 0)
+                        return;
+                    }
+                    let data = res.data.data;
+                        this.data.totalAssets = data.totalAssets;
+                        this.data.totalInteres = data.totalInteres;
+                        this.data.yesterdayInteres = data.yesterdayInteres;
+                        this.data.balance = data.balance;
+                        this.data.chinaPNRBalance = data.chinaPNRBalance;
+                        this.data.redeemData = data.redeemData || {};
+                        this.data.income = data.income;
+                })
+                .catch(e => {
+                    console.log(e)
+                })
         }
     },
-    beforeCreate() {
-        this.$store.registerModule('Mine', Mine);
-        this.$store.dispatch('Mine/syncDate');
-    },
-    destroyed() {
-        this.$store.unregisterModule('Mine');
+    beforeMount() {
+        this.syncDate();
     },
     mounted() {
-        var mineState = this.$store.state.Mine;
-        if (mineState.data.income > 0) {
+        if (this.data.income > 0) {
             this.$modal({
                 title: '温馨提示',
                 okText: '继续投资',
                 content: document.getElementById('redeemModal').innerHTML,
                 ok: function () {
-                    location.href = `http://m.hehenian.com/product/plist.do?channel=${mineState.data.redeemData.channel}&subChannel=${mineState.data.redeemData.sub_channel}`
+                    location.href = `http://m.hehenian.com/product/plist.do?channel=${this.data.redeemData.channel}&subChannel=${this.data.redeemData.sub_channel}`
                 },
-                cancel: function () {}
+                cancel: function () { }
             });
         }
     }

@@ -20,3 +20,5 @@ em,i{font-style:normal;}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .icon{background-image:url(http://static.hehenian.com/m/v4/images/icons.png);
     -webkit-background-size:100px auto;background-size:100px auto;background-repeat:no-repeat;display: inline-block;}
+    .index-container{background: #eee;padding-bottom: 65px;}
+    .lock-scroll .child-view{overflow: hidden!important;}

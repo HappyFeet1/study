@@ -1,5 +1,5 @@
 <template>
-    <transition name="modal-bounce" @after-leave="close">
+    <transition name="modal-bounce">
         <div class="iModal-wrapper" v-show="isShow" :class="[{'no-title':!title,'no-ok':!ok,'no-cancel':!cancel,emptyBtns:!Object.keys(btns).length, horizontalBtns: Object.keys(btns).length>2, 'modal-toast': type=='toast'&&!iconClass, 'modal-toast-center':iconClass}, skinClass]">
             <div class="iModal" v-if="type=='modal'">
                 <div class="iModal-title">{{title}}</div>
@@ -36,18 +36,25 @@ export default {
             iconClass: '',
             type: 'modal',
             skinClass: null,
-            time: 3000
+            time: 3000,
+
+        }
+    },
+    watch: {
+        'isShow': function (val) {
+            if (!val) {
+                setTimeout(()=>{
+                    this.remove && this.$el.parentNode.removeChild(this.$el);
+                    this.onclose.call(this);
+                },310)
+            }
         }
     },
     methods: {
         btnsEvent(callback) {
             if (callback() !== false) {
-                 this.isShow = false;
+                this.isShow = false;
             }
-        },
-        remove() {
-            this.remove && this.$el.parentNode.removeChild(this.$el);
-            this.onclose.call(this);
         },
         close() {
             this.isShow = false;

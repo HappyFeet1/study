@@ -26,8 +26,8 @@
 </style>
 
 <script type="text/babel">
-  import { Toast } from 'src/index';
 
+  import { Toast } from 'src/index';
   export default {
     methods: {
       openToast() {

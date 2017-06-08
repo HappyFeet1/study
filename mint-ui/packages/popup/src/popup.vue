@@ -95,7 +95,7 @@
       },
 
       modalFade: {
-        default: true
+        default: false
       },
 
       lockScroll: {

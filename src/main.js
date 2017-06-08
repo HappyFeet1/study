@@ -10,6 +10,11 @@ import '../static/main.css';
 import utils from '../static/js/utils';
 
 import modal from '@/components/modal/';
+import toast from 'mint-ui/lib/toast/';
+import indicator from 'mint-ui/lib/indicator/';
+
+import 'mint-ui/lib/toast/style.css';
+import 'mint-ui/lib/indicator/style.css';
 
 axios.defaults.baseURL = 'http://m.hehenian.com';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -31,8 +36,12 @@ axios.interceptors.request.use((config) => {
 
 Vue.$axios = Vue.prototype.$axios = axios;
 Vue.$modal = Vue.prototype.$modal = modal;
+Vue.$toast = Vue.prototype.$toast = toast;
+Vue.$indicator = Vue.prototype.$indicator = indicator;
+Vue.$utils = Vue.prototype.$utils = utils;
 
 Vue.config.productionTip = false;
+
 
 router.beforeEach((to, from, next) => {
   //定义一个可以记录路由路径变化的数据，这里用在vuex，其实也可以用sessionStorage,或者在window.routeChain等变量
@@ -61,21 +70,12 @@ router.beforeEach((to, from, next) => {
       store.commit('setPageDirection', 'slide-left');
     }
   }
+
   next();
 });
 
-Vue.filter('formatNumber', function (num, fix) {
-  num = Number(num);
-  num = num ? num : 0;
-  if (typeof num !== 'number') return num;
-  num = fix ? parseFloat(num).toFixed(2) : num;
-  num = num + '';
-  var rgx = /(\d+)(\d{3})/g;
-  while (rgx.test(num)) {
-    num = num.replace(rgx, '$1' + ',' + '$2');
-  }
-  return num;
-})
+
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -17,6 +17,16 @@ const router = new Router({
       ]
     },
     {path:'/login', name:'login', component: resolve => require(['@/pages/login'],resolve)},
+    {path:'/message', name:'message', component: resolve => require(['@/pages/message'],resolve)},
+    {path:'/setting', name:'setting', component: resolve => require(['@/pages/setting'],resolve)},
+    {path:'/plat', name:'plat', component: resolve => require(['@/pages/plat'],resolve)},
+    {path:'/debtList', name:'debtList', component: resolve => require(['@/pages/debtList'],resolve)},
+    {path:'/debtList/debtDetail', name:'debtDetail', component: resolve => require(['@/pages/debtDetail'],resolve)},
+    {path:'/debtList/borrowInfo', name:'borrowInfo', component: resolve => require(['@/pages/debtBorrowInfo'],resolve)},
+    {path:'/debtList/verifyInfo', name:'verifyInfo', component: resolve => require(['@/pages/debtVerifyInfo'],resolve)},
+    {path:'/debtList/bidInfo', name:'bidInfo', component: resolve => require(['@/pages/debtDidInfo'],resolve)},
+    {path:'/debtList/repaymentInfo', name:'repaymentInfo', component: resolve => require(['@/pages/debtRepaymentInfo'],resolve)},
+    {path:'/debtList/debtHelp', name:'debtHelp', component: resolve => require(['@/pages/debtHelp'],resolve)},
   ]
 });
 export default router;

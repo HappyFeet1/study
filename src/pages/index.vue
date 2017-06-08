@@ -1,9 +1,9 @@
 <template>
 <div class="index-container">
     <div class="top-nav">
-        <a href="#!/message/4" class="icon icon-msg"></a>
+        <router-link :to="{path:'message', query:{typeId:4}}" class="icon icon-msg"></router-link>
         <h1>钱生花</h1>
-        <a href="#!/setting" class="icon icon-setting"></a>
+        <router-link :to="{path:'setting'}" class="icon icon-setting"></router-link>
     </div>
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="(item, i) in data.carouselbanner" :key="i" :style="{backgroundImage:'url('+item.banner+')'}">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="wrapper-pannel" v-if="data.overview">
-        <div class="title-bar">{{data.overview.nav}}<a href="#/plat" class="more">更多</a></div>
+        <div class="title-bar">{{data.overview.nav}}<router-link :to="{name:'plat'}" class="more">更多</router-link></div>
         <div class="plat-data">
                 <a href="javascript:;">
                 <i class="icon icon-users"></i>
@@ -54,7 +54,7 @@
     </div>
 
     <div class="wrapper-pannel" v-if="data.underlying">
-        <div class="title-bar">{{data.underlying.nav}} <a href="#/debtList/remainTimeStart" class="more">更多</a></div>
+        <div class="title-bar">{{data.underlying.nav}} <router-link :to="{name:'debtList'}" class="more">更多</router-link></div>
         <div class="targets" v-for="el in data.underlying.content">
             <a class="name" :href="filterUrl(el.link)">
                 <h3>{{el.title}}</h3>

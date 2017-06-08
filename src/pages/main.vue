@@ -27,18 +27,22 @@ import TabItem from 'mint-ui/lib/tab-item/';
 export default {
     data() {
         return {
-            selected: 'index'
+            selected: this.$route.name || 'index'
         }
     },
     methods: {
         go: function () {
             let name = { name: this.selected !== 'index' ? this.selected : 'main' };
+            this.$store.state.selected = this.selected;
             this.$router.push(name);
         }
     },
     components: {
         'mt-tabbar': Tabbar,
         'mt-tab-item': TabItem,
+    },
+    beforeMount () {
+        this.$store.state.selected = this.selected;
     }
 }
 </script>

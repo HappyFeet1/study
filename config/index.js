@@ -28,15 +28,15 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable:{},
-    // proxyTable: {
-    //   '*': {
-    //     target: 'http://m.hehenian.com',
-    //     changeOrigin: true,
-    //     filter: function (pathname, req) {
-    //       return pathname.indexOf('.do') > -1;
-    //     }
-    //   }
-    // },
+    proxyTable: {
+      '*': {
+        target: 'http://m.hehenian.com',
+        changeOrigin: true,
+        filter: function (pathname, req) {
+          return pathname.indexOf('.do') > -1;
+        }
+      }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
