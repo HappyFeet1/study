@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: 'http://static.hehenian.com/m/v5/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -27,13 +27,35 @@ module.exports = {
     autoOpenBrowser: false,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable:{},
+    // proxyTable:{},
     proxyTable: {
       '*': {
         target: 'http://m.hehenian.com',
         changeOrigin: true,
         filter: function (pathname, req) {
           return pathname.indexOf('.do') > -1;
+        },
+        onProxyRes(proxyRes, req, res) {//cookie 跨域问题
+          var oldCookie = proxyRes.headers['set-cookie']
+          if (oldCookie == null || oldCookie.length == 0) {
+            delete proxyRes.headers['set-cookie']
+            return;
+          }
+          var oldCookieItems = oldCookie[0].split(';')
+          var newCookie = ''
+          for (var i = 0; i < oldCookieItems.length; ++i) {
+            if (newCookie.length > 0)
+              newCookie += ';'
+            // if (oldCookieItems[i].indexOf('domain=') >= 0)
+            if (/domain=/i.test(oldCookieItems[i]))
+              newCookie += 'domain=localhost'
+            else
+              newCookie += oldCookieItems[i]
+          }
+          console.log(newCookie)
+          proxyRes.headers['set-cookie'] = [newCookie]
+          // proxyRes.headers['x-addedygc'] = 'foobar';     // add new header to response 
+          // delete proxyRes.headers['connection'];       // remove header from response 
         }
       }
     },

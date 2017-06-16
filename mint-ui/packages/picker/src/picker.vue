@@ -1,6 +1,13 @@
 <template>
   <div class="picker" :class="{ 'picker-3d': rotateEffect }">
-    <div class="picker-toolbar" v-if="showToolbar"><slot></slot></div>
+    <div class="picker-toolbar" v-if="showToolbar">
+      <div class="title">
+          {{title||'请选择'}}
+      </div>
+      <div class="btns">
+          <button @click="okEvent">确定</button>
+      </div>
+    </div>
     <div class="picker-items">
       <picker-slot v-for="slot in slots" :valueKey="valueKey" :values="slot.values || []" :text-align="slot.textAlign || 'center'" :visible-item-count="visibleItemCount" :class-name="slot.className" :flex="slot.flex" v-model="values[slot.valueIndex]" :rotate-effect="rotateEffect" :divider="slot.divider" :content="slot.content" :itemHeight="itemHeight" :default-index="slot.defaultIndex"></picker-slot>
       <div class="picker-center-highlight" :style="{ height: itemHeight + 'px', marginTop: -itemHeight / 2 + 'px' }"></div>
@@ -9,12 +16,24 @@
 </template>
 
 <style>
+  @import "../../../src/style/var.css";
   .picker {
     overflow: hidden;
   }
 
   .picker-toolbar {
     height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    background-color: $color-gold;
+    color:$color-white;
+    display:flex;
+  }
+  .picker-toolbar .title{
+    flex:1;
+  }
+  .picker-toolbar .btns button{
+    color:$color-white;
   }
 
   .picker-items {
@@ -89,7 +108,9 @@
       itemHeight: {
         type: Number,
         default: 36
-      }
+      },
+      title: String,
+      ok: Function
     },
 
     created() {
@@ -167,6 +188,9 @@
         values.forEach((value, index) => {
           this.setSlotValue(index, value);
         });
+      },
+      okEvent(){
+        this.ok(this.values);
       }
     },
 

@@ -60,9 +60,9 @@ export default {
         }
 
         &.is-selected {
-          border-bottom: 3px solid $color-blue;
-          color: $color-blue;
-          margin-bottom: -3px;
+          border-bottom: 1px solid $color-gold-light;
+          color: $color-gold-light;
+          margin-bottom: -2px;
         }
       }
     }

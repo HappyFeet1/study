@@ -1,25 +1,25 @@
 <template>
-    <div class="mine">
+    <div class="mine" style="padding-bottom:65px;">
         <div class="info-pannel">
             <!--<a class="link" href="javascript:history.go(-1);">返回</a>-->
             <h2 class="title">我的账户</h2>
-            <a class="total" href="#!/overview/asset">
+            <router-link class="total" :to="{path:'/overview',query:{key:'asset'}}">
                 <h3>我的总资产(元)
                     <i class="icon icon-eye" :class="{'icon-eye-close':hide=='****'}" @click.stop.prevent="toggleHide()"></i>
                 </h3>
                 <p>{{hide||formatNumber(data.totalAssets)}}</p>
-            </a>
+            </router-link>
             <ul class="sub-list">
                 <li>
                     <h3>
-                        <a href="#!/overview/total">累计收益(元)</a>
+                        <router-link :to="{path:'/overview',query:{key:'total'}}">累计收益(元)</router-link>
                         <i @click="incomeDialog('totalIncomeDialog')" class="icon icon-help"></i>
                     </h3>
                     <p>{{hide||formatNumber(data.totalInteres)}}</p>
                 </li>
                 <li>
                     <h3>
-                        <a href="#!/overview/yesterday">昨日收益(元)</a>
+                        <router-link :to="{path:'/overview',query:{key:'yesterday'}}">昨日收益(元)</router-link>
                         <i @click="incomeDialog('yesterdayIncomeDialog')" class="icon icon-help"></i>
                     </h3>
                     <p>{{hide||formatNumber(data.yesterdayInteres)}}</p>
@@ -42,16 +42,16 @@
                 </li>
             </ul>
             <div class="btns">
-                <a href="javascript:;" ms-click="recharge()">充 值</a>
-                <a href="javascript:;" ms-click="withdraw()">提 现</a>
+                <a href="javascript:;" @click="recharge()">充 值</a>
+                <a href="javascript:;" @click="withdraw()">提 现</a>
             </div>
         </div>
         <div class="mine-menu">
             <div>
-                <a href="#!/overview/asset">
+                <router-link :to="{path:'/overview',query:{key:'asset'}}">
                     <i class="icon icon-investment"></i>
                     <p>我的投资</p>
-                </a>
+                </router-link>
                 <a href="http://m.hehenian.com/page/h5/profile/bill_list.html">
                     <i class="icon icon-accout"></i>
                     <p>我的账单</p>
@@ -60,20 +60,20 @@
                     <i class="icon icon-award"></i>
                     <p>理财师奖励</p>
                 </a>
-                <a href="#/setting">
+                <router-link to="/setting">
                     <i class="icon icon-setting"></i>
                     <p>设置</p>
-                </a>
+                </router-link>
             </div>
             <div v-if="channel===0">
-                <a href="#!/vip">
+                <router-link to="/vip">
                     <i class="icon icon-vipClub"></i>
                     <p>VIP俱乐部</p>
-                </a>
-                <a href="#!/helper">
+                </router-link>
+                <router-link to="/helper">
                     <i class="icon icon-helper"></i>
                     <p>助手</p>
-                </a>
+                </router-link>
                 <a href="javascript:;"></a>
                 <a href="javascript:;"></a>
             </div>
@@ -117,13 +117,12 @@
     </div>
 </template>
 <script>
+import verifyPay from '@/common/verifyPay';
 import { mapState, mapMutations } from 'vuex';
-import Mine from '@/store/modules/mine.js';
-const localHide = localStorage.getItem('hideMoney');
 export default {
     data() {
         return {
-            hide: (localHide === '****' || localHide === null) ? '****' : false,
+            hide: localStorage.getItem('hideMoney') !== 'false' ? '****' : false,
             data: {
                 totalAssets: '',
                 totalInteres: '',
@@ -166,24 +165,41 @@ export default {
         syncDate: function () {
             this.$axios.get('/api/mineAccount.do')
                 .then(res => {
-                    if(res.data.code===-10000||res.request.responseURL.indexOf('login/index.do') > -1){
+                    if (res.data.code === -10000 || res.request.responseURL.indexOf('login/index.do') > -1) {
                         setTimeout(() => {
                             this.$router.push({ name: 'login' })
                         }, 0)
                         return;
                     }
                     let data = res.data.data;
-                        this.data.totalAssets = data.totalAssets;
-                        this.data.totalInteres = data.totalInteres;
-                        this.data.yesterdayInteres = data.yesterdayInteres;
-                        this.data.balance = data.balance;
-                        this.data.chinaPNRBalance = data.chinaPNRBalance;
-                        this.data.redeemData = data.redeemData || {};
-                        this.data.income = data.income;
+                    this.data.totalAssets = data.totalAssets;
+                    this.data.totalInteres = data.totalInteres;
+                    this.data.yesterdayInteres = data.yesterdayInteres;
+                    this.data.balance = data.balance;
+                    this.data.chinaPNRBalance = data.chinaPNRBalance;
+                    this.data.redeemData = data.redeemData || {};
+                    this.data.income = data.income;
                 })
                 .catch(e => {
                     console.log(e)
                 })
+        },
+        recharge() {
+            verifyPay(() => {
+                location.href = 'http://m.hehenian.com/balance/chargePage.do';
+            });
+        },
+        withdraw() {
+            if (parseFloat(this.data.balance) + parseFloat(this.data.chinaPNRBalance) > 0) {
+                this.$modal({
+                    title: '请选择您要提现的金额账户',
+                    content: '<style>.withdrawals a{display:inline-block;padding:15px 30px;color: #DDAD58;}</style><p class="withdrawals"><a style="border-right:1px solid #ccc;" href="http://m.hehenian.com/chinapnr/webappCash.do">汇付账户</a><a href="javascript:chekp(\'http://m.hehenian.com/balance/withdrawPage.do\');">平台账户</a></p>',
+                    cancelText: '取消',
+                    cancel: function () { }
+                });
+            } else {
+                this.$toast('账户没有可提现的余额！');
+            }
         }
     },
     beforeMount() {
@@ -201,113 +217,15 @@ export default {
                 cancel: function () { }
             });
         }
+    },
+    beforeCreate(){
+        this.$parent.selected = 'mine'
     }
 }
 </script>
 
 <style>
-.info-pannel .link {
-    position: absolute;
-    height: 44px;
-    line-height: 44px;
-    left: 0;
-    top: 0;
-    width: 66px;
-    overflow: hidden;
-    color: #aaa;
-    font-size: 14px;
-    text-indent: 18px;
-}
-
-.info-pannel .link:before {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-top: 1px solid #aaa;
-    border-left: 1px solid #aaa;
-    top: 17px;
-    left: 16px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    pointer-events: none;
-}
-
-.info-pannel .link:before {
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-}
-
-.info-pannel .link {
-    text-indent: -999px;
-}
-
-.info-pannel {
-    height: 279px;
-    background-image: url(http://static.hehenian.com/m/v4/images/mine_banner_bg.jpg);
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: 50% 50%;
-    color: #fff;
-    text-align: center;
-    position: relative;
-    background-position: 50% 50%;
-}
-
-.info-pannel .title {
-    font-size: 18px;
-    line-height: 44px;
-    margin-bottom: 30px;
-}
-
-.info-pannel .total {
-    display: block;
-    color: #fff;
-}
-
-.info-pannel .total h3 {
-    font-size: 14px;
-    padding-bottom: 10px;
-}
-
-.info-pannel .total p {
-    font-size: 40px;
-}
-
-.sub-list {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-}
-
-.sub-list a {
-    color: #fff;
-}
-
-.sub-list li {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-    padding: 0 0 15px;
-}
-
-.sub-list li p {
-    padding-top: 10px;
-}
-
-.sub-list h4 {
-    font-size: 14px;
-}
-
-.sub-list p {
-    font-size: 24px;
-}
-
+@import '../../static/overview.css';
 .account-pannel {
     background-color: #fff;
     text-align: center;
@@ -315,7 +233,6 @@ export default {
     border-top: 1px solid #DCDCDC;
     border-bottom: 1px solid #DCDCDC;
 }
-
 .account-pannel ul {
     display: -webkit-box;
     display: -webkit-flex;
@@ -323,44 +240,36 @@ export default {
     border-bottom: 1px solid #DCDCDC;
     height: 74px;
 }
-
 .account-pannel li {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
     border-right: 1px solid #DCDCDC;
 }
-
 .account-pannel li:last-child {
     border-right: none;
 }
-
 .account-pannel h3 {
     font-size: 14px;
     color: #999;
 }
-
 .account-pannel p {
     font-size: 20px;
     color: #666;
 }
-
 .account-pannel li>a {
     padding: 15px 0;
     display: block;
 }
-
 .account-pannel li>a:active {
     background-color: #f2f2f2;
 }
-
 .account-pannel .btns {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     padding: 15px 0;
 }
-
 .account-pannel .btns a {
     height: 46px;
     line-height: 46px;
@@ -372,25 +281,21 @@ export default {
     margin: 0 17px;
     color: #fff;
 }
-
 .account-pannel .btns a:active {
     background-color: #CE7C00;
 }
-
 .mine-menu {
     text-align: center;
     background-color: #fff;
     margin-top: 5px;
     border-top: 1px solid #DCDCDC;
 }
-
 .mine-menu>div {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     border-bottom: 1px solid #DCDCDC;
 }
-
 .mine-menu a {
     display: block;
     -webkit-box-flex: 1;
@@ -399,119 +304,41 @@ export default {
     padding: 15px 0;
     border-right: 1px solid #DCDCDC;
 }
-
 .mine-menu a:last-child {
     border-right: none;
 }
-
 .mine-menu a:active {
     background-color: #f2f2f2;
 }
-
 .mine-menu .icon {
     display: inline-block;
     width: 25px;
     height: 25px;
 }
-
 .mine-menu .icon-investment {
     background-position: -25px -125px;
 }
-
 .mine-menu .icon-award {
     background-position: -50px -125px;
 }
-
 .mine-menu .icon-accout {
     background-position: -75px -125px;
 }
-
 .mine-menu .icon-setting {
     background-position: 0 -150px;
 }
-
 .mine-menu .icon-order {
     background-position: -25px -225px;
 }
-
 .mine-menu .icon-vipClub {
     background-position: 0 -250px;
 }
-
 .mine-menu .icon-helper {
     background-position: -25px -275px;
 }
-
 .mine-menu p {
     display: block;
     font-size: 12px;
     color: #544236;
-}
-
-.mine .icon-eye {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-position: -50px -250px;
-    position: relative;
-    bottom: -8px;
-}
-
-.mine .icon-eye-close {
-    background-position: -75px -250px;
-}
-
-.mine .icon-help {
-    background-position: 0 -275px;
-    position: relative;
-    bottom: -8px;
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-}
-
-.rate-tip .iModal,
-.rate-tip .iModal-content {
-    background-image: -webkit-linear-gradient(90deg, #BC9052, #9D7134);
-    background-image: linear-gradient(90deg, #BC9052, #9D7134);
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, .25);
-    position: relative;
-    overflow: visible;
-}
-
-.rate-tip h2 {
-    color: #fff;
-    border-bottom: 1px solid #fff;
-    padding-bottom: 10px;
-}
-
-.rate-tip p {
-    text-align: left;
-    padding-top: 10px;
-    color: #212121
-}
-
-.rate-tip .formula {
-    color: #fff;
-    padding: 20px 0 10px;
-}
-
-.rate-tip span {
-    font-size: 12px;
-    color: #F7BF71;
-    padding-top: 10px;
-    display: block;
-}
-
-.rate-tip .close {
-    display: inline-block;
-    width: 44px;
-    height: 65px;
-    background-image: url(http://static.hehenian.com/m/v4/images/dialog-close.png);
-    -webkit-background-size: contain;
-    background-size: contain;
-    position: absolute;
-    top: -65px;
-    right: 10px;
 }
 </style>

@@ -1,7 +1,5 @@
 import NavConfig from './nav.config.json';
 
-import Demo from './demos.vue';
-
 const registerRoute = (config) => {
   let route = [];
   config.map(nav =>
@@ -9,7 +7,6 @@ const registerRoute = (config) => {
       route.push({
         name: page.name,
         path: page.path,
-        // component: resolve => require([`./pages${page.path}`], resolve),
         component: require(`./pages${page.path}`),
         meta: {
           title: page.title || page.name,
@@ -24,10 +21,9 @@ const registerRoute = (config) => {
 
 const route = registerRoute(NavConfig);
 
-
 route.route.push({
   path: '/',
-  component: Demo
+  component: require('./demos.vue')
 });
 
 export const navs = route.navs;

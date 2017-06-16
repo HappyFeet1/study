@@ -40,9 +40,6 @@ export default {
     components: {
         'mt-tabbar': Tabbar,
         'mt-tab-item': TabItem,
-    },
-    beforeMount () {
-        this.$store.state.selected = this.selected;
     }
 }
 </script>
@@ -51,23 +48,18 @@ export default {
 .mint-tabbar .icon-home {
     background-position: 0 0;
 }
-
 .mint-tabbar .icon-product {
     background-position: 0 -25px;
 }
-
 .mint-tabbar .icon-mine {
     background-position: 0 -75px;
 }
-
 .mint-tabbar .is-selected .icon-home {
     background-position: -25px 0;
 }
-
 .mint-tabbar .is-selected .icon-product {
     background-position: -25px -25px;
 }
-
 .mint-tabbar .is-selected .icon-mine {
     background-position: -25px -75px;
 }

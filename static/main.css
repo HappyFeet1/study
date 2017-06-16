@@ -22,3 +22,17 @@ em,i{font-style:normal;}
     -webkit-background-size:100px auto;background-size:100px auto;background-repeat:no-repeat;display: inline-block;}
     .index-container{background: #eee;padding-bottom: 65px;}
     .lock-scroll .child-view{overflow: hidden!important;}
+
+
+.page-infinite-loading {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+}
+
+.page-infinite-loading div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}    

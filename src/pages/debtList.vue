@@ -30,7 +30,7 @@
         </div>
         <div :class="{'targets-list':selected==1,'transfer-list':selected==2}" v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <div v-for="el in loadData">
-            <router-link class="item" :to="{path:'debtList/debtDetail',query:{'id':el.businessNo}}" v-if="selected==1">
+            <router-link class="item" :to="{path:'/debtList/debtDetail',query:{'id':el.businessNo}}" v-if="selected==1">
                 <dl>
                     <dt>{{el.loanTitle}}</dt>
                     <dd>借款金额： {{el.borrowAmount}}元</dd>

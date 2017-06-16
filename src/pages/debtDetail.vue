@@ -54,13 +54,13 @@
                     <li>
                         <label>风险提示：</label>
                         <div class="text">
-                            <router-link to="helper/list/debtSafe" class="link">详情参见钱生花风险提示</router-link>
+                            <router-link to="/helper/list/debtSafe" class="link">详情参见钱生花风险提示</router-link>
                         </div>
                     </li>
                     <li>
                         <label>安全保障：</label>
                         <div class="text">
-                            <router-link to="helper/list/3safe" class="link">详情参见钱生花安全保障</router-link>
+                            <router-link to="/helper/list/3safe" class="link">详情参见钱生花安全保障</router-link>
                         </div>
                     </li>
                 </ul>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="target_btn">
-            <router-link v-show="data.borrowStatus==1" :to="'debtBuy/'+data.businessNo">立即投标</router-link>
+            <router-link v-show="data.borrowStatus==1" :to="'/debtBuy/'+data.businessNo">立即投标</router-link>
         </div>
     </div>
 </template>

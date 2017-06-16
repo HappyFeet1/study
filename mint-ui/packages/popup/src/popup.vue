@@ -1,6 +1,6 @@
 <template>
   <transition :name="currentTransition">
-    <div v-show="currentValue" class="mint-popup" :class="[position ? 'mint-popup-' + position : '']">
+    <div v-show="currentValue" class="mint-popup" :class="[position ? 'mint-popup-' + position : '']" ontouchmove="return false">
       <slot></slot>
     </div>
   </transition>
@@ -95,11 +95,11 @@
       },
 
       modalFade: {
-        default: false
+        default: true
       },
 
       lockScroll: {
-        default: false
+        default: true
       },
 
       closeOnClickModal: {

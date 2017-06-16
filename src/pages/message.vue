@@ -229,18 +229,7 @@ export default {
     padding: 10px 0 5px;
     font-size: 12px;
 }
-.page-infinite-loading {
-    text-align: center;
-    height: 50px;
-    line-height: 50px;
-    background-color: #fff;
-}
 
-.page-infinite-loading div {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
-}
 </style>
 
 

@@ -34,7 +34,7 @@
     
         <div class="product_list" v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <div v-for="item in loadData" class="product_item product_item_insert">
-                <router-link :to="item.status==1?'project/'+item.projectId:''">
+                <router-link :to="item.status==1?'/project/'+item.projectId:''">
                     <div class="product_title" :class="{'product_title_aft':item.status!=1}">
                         <span class="debt_text">{{item.productName+item.period+'期'}}</span>
                         <span class="debt_num">已投:
@@ -263,7 +263,7 @@ export default {
         'mt-spinner': Spinner
     },
     beforeMount() {
-
+        this.$parent.selected = 'project';
     },
     destroyed() {
 

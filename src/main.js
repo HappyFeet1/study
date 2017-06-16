@@ -16,8 +16,10 @@ import indicator from 'mint-ui/lib/indicator/';
 import 'mint-ui/lib/toast/style.css';
 import 'mint-ui/lib/indicator/style.css';
 
-axios.defaults.baseURL = 'http://m.hehenian.com';
+axios.defaults.baseURL = (process.env.NODE_ENV === 'development') ? '': 'http://m.hehenian.com';
+// axios.defaults.baseURL = 'http://m.hehenian.com';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.withCredentials = true;
 
 let serializer = (obj = {}) => {
   var param = [];

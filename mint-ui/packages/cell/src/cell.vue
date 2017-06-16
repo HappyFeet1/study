@@ -45,6 +45,7 @@ if (process.env.NODE_ENV === 'component') {
  * @param {slot} - 同 value, 会覆盖 value 属性
  * @param {slot} [title] - 同 title, 会覆盖 title 属性
  * @param {slot} [icon] - 同 icon, 会覆盖 icon 属性，例如可以传入图片
+ * @param {click} [Function] - 点击事件
  *
  * @example
  * <mt-cell title="标题文字" icon="back" is-link value="描述文字"></mt-cell>
@@ -61,6 +62,7 @@ export default {
     title: String,
     label: String,
     isLink: Boolean,
+    click: Function,
     value: {}
   },
 
@@ -75,8 +77,14 @@ export default {
           this.$el.addEventListener('click', this.handleClick);
         });
         return resolved.path;
+      }else{
+        this.$nextTick(() => {
+            this.$el.addEventListener('click', ()=>{
+              this.click&&this.click();
+            });
+        });
+        return this.to;
       }
-      return this.to;
     }
   },
 
@@ -84,6 +92,7 @@ export default {
     handleClick($event) {
       $event.preventDefault();
       this.$router.push(this.href);
+      this.click&&this.click();
     }
   }
 };
@@ -102,8 +111,10 @@ export default {
       overflow: hidden;
       position: relative;
       text-decoration: none;
+      
 
       &:first-child {
+        border-top: 1px solid #eee;
         .mint-cell-wrapper {
           background-origin: border-box;
         }
@@ -114,6 +125,10 @@ export default {
         background-size: 100% 1px;
         background-repeat: no-repeat;
         background-position: bottom;
+        border-bottom: 1px solid #eee;
+        .mint-cell-wrapper{
+          border-bottom:none;
+        }
       }
 
       @descendent wrapper {
@@ -129,8 +144,10 @@ export default {
         line-height: 1;
         min-height: inherit;
         overflow: hidden;
-        padding: 0 10px;
-        width: 100%;
+        margin-left: 10px;
+        padding-right: 10px;
+        border-bottom: 1px solid #eee;
+        flex:1;
       }
 
       @descendent mask {
@@ -139,11 +156,13 @@ export default {
           content: " ";
           opacity: 0;
           position: absolute 0;
+          pointer-events:none;
         }
 
-        &:active::after {
+        
+      }
+      &:active .mint-cell-mask::after {
           opacity: .1;
-        }
       }
 
       @descendent text {

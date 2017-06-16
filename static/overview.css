@@ -1,0 +1,170 @@
+.info-pannel .link {
+    position: absolute;
+    height: 44px;
+    line-height: 44px;
+    left: 0;
+    top: 0;
+    width: 66px;
+    overflow: hidden;
+    color: #aaa;
+    font-size: 14px;
+    text-indent: 18px;
+}
+
+.info-pannel .link:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    top: 17px;
+    left: 16px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    pointer-events: none;
+}
+
+.info-pannel .link:before {
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+
+.info-pannel .link {
+    text-indent: -999px;
+}
+
+.info-pannel {
+    height: 279px;
+    background-image: url(http://static.hehenian.com/m/v4/images/mine_banner_bg.jpg);
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    background-position: 50% 50%;
+}
+
+.info-pannel .title {
+    font-size: 18px;
+    line-height: 44px;
+    margin-bottom: 30px;
+}
+
+.info-pannel .total {
+    display: block;
+    color: #fff;
+}
+
+.info-pannel .total h3 {
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+.info-pannel .total p {
+    font-size: 40px;
+}
+
+.sub-list {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.sub-list a {
+    color: #fff;
+}
+
+.sub-list li {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 0 0 15px;
+}
+
+.sub-list li p {
+    padding-top: 10px;
+}
+
+.sub-list h4 {
+    font-size: 14px;
+}
+
+.sub-list p {
+    font-size: 24px;
+}
+
+.mine .icon-eye {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-position: -50px -250px;
+    position: relative;
+    bottom: -8px;
+}
+
+.mine .icon-eye-close {
+    background-position: -75px -250px;
+}
+
+.mine .icon-help {
+    background-position: 0 -275px;
+    position: relative;
+    bottom: -8px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+}
+
+
+
+.rate-tip .iModal,
+.rate-tip .iModal-content {
+    background-image: -webkit-linear-gradient(90deg, #BC9052, #9D7134);
+    background-image: linear-gradient(90deg, #BC9052, #9D7134);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .25);
+    position: relative;
+    overflow: visible;
+}
+
+.rate-tip h2 {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+}
+
+.rate-tip p {
+    text-align: left;
+    padding-top: 10px;
+    color: #212121
+}
+
+.rate-tip .formula {
+    color: #fff;
+    padding: 20px 0 10px;
+}
+
+.rate-tip span {
+    font-size: 12px;
+    color: #F7BF71;
+    padding-top: 10px;
+    display: block;
+}
+
+.rate-tip .close {
+    display: inline-block;
+    width: 44px;
+    height: 65px;
+    background-image: url(http://static.hehenian.com/m/v4/images/dialog-close.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    position: absolute;
+    top: -65px;
+    right: 10px;
+}

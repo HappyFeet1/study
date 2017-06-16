@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import merge from 'mint-ui/src/utils/merge';
+import {addClass, removeClass} from 'mint-ui/src/utils/dom';
 import PopupManager from 'mint-ui/src/utils/popup/popup-manager';
 
 let idSeed = 1;
@@ -220,6 +221,7 @@ export default {
             document.body.style.paddingRight = scrollBarWidth + 'px';
           }
           document.body.style.overflow = 'hidden';
+          addClass(document.body, 'lock-scroll');
         }
       }
 
@@ -278,6 +280,7 @@ export default {
           this.bodyOverflow = null;
           this.bodyPaddingRight = null;
         }, 200);
+        removeClass(document.body, 'lock-scroll');
       }
 
       this.opened = false;

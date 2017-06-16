@@ -41,7 +41,7 @@
 import { mapState } from 'vuex';
 import Cell from 'mint-ui/lib/cell/';
 import 'mint-ui/lib/cell/style.css';
-import verifySafe from '@/common/safe';
+import verifySafe from '@/common/verifyUpdateMobile';
 export default {
     data() {
         return {

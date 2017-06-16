@@ -11,7 +11,7 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    background-color: #26a2ff;
+    background-color: #B68E50;
     box-sizing: border-box;
     color: #fff;
     display: -webkit-box;
@@ -126,12 +126,12 @@
 }
 .mint-button--primary {
     color: #fff;
-    background-color: #26a2ff
+    background-color: #B68E50
 }
 .mint-button--primary.is-plain {
-    border: 1px solid #26a2ff;
+    border: 1px solid #B68E50;
     background-color: transparent;
-    color: #26a2ff
+    color: #B68E50
 }
 .mint-button--danger {
     color: #fff;
@@ -178,6 +178,9 @@
 .mint-cell img {
     vertical-align:middle;
 }
+.mint-cell:first-child {
+    border-top:1px solid #eee;
+}
 .mint-cell:first-child .mint-cell-wrapper {
     background-origin:border-box;
 }
@@ -186,6 +189,13 @@
     background-size:100% 1px;
     background-repeat:no-repeat;
     background-position:bottom;
+    border-bottom:1px solid #eee;
+}
+.mint-cell:last-child .mint-cell-wrapper {
+    border-bottom:none;
+}
+.mint-cell:active .mint-cell-mask::after {
+    opacity:.1;
 }
 .mint-cell-wrapper {
     background-image:linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
@@ -204,8 +214,12 @@
     line-height: 1;
     min-height: inherit;
     overflow: hidden;
-    padding: 0 10px;
-    width: 100%;
+    margin-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid #eee;
+    -webkit-box-flex:1;
+        -ms-flex:1;
+            flex:1;
 }
 .mint-cell-mask {}
 .mint-cell-mask::after {
@@ -217,9 +231,7 @@
     bottom:0;
     left:0;
     position:absolute;
-}
-.mint-cell-mask:active::after {
-    opacity:.1;
+    pointer-events:none;
 }
 .mint-cell-text {
     vertical-align: middle;
@@ -807,9 +819,9 @@ display: inline-block;
     border-right: 0;
 }
 .mint-navbar .mint-tab-item.is-selected {
-    border-bottom: 3px solid #26a2ff;
-    color: #26a2ff;
-    margin-bottom: -3px;
+    border-bottom: 1px solid #E5A035;
+    color: #E5A035;
+    margin-bottom: -2px;
 }
 .mint-navbar.is-fixed {
     top: 0;
@@ -845,7 +857,7 @@ display: inline-block;
 }
 .mint-tabbar > .mint-tab-item.is-selected {
     background-color: #eaeaea;
-    color: #26a2ff;
+    color: #B68E50;
 }
 .mint-tabbar.is-fixed {
     right: 0;
@@ -1356,12 +1368,35 @@ display: inline-block;
 .mt-range--disabled {
     opacity: 0.5
 }
-
+/* Cell Component */
+/* Header Component */
+/* Button Component */
+/* Tab Item Component */
+/* Tabbar Component */
+/* Navbar Component */
+/* Checklist Component */
+/* Radio Component */
+/* z-index */
 .picker {
   overflow: hidden;
 }
 .picker-toolbar {
   height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  background-color: #B68E50;
+  color:#fff;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+}
+.picker-toolbar .title{
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+}
+.picker-toolbar .btns button{
+  color:#fff;
 }
 .picker-items {
   display: -webkit-box;

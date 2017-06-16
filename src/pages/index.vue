@@ -1,9 +1,9 @@
 <template>
 <div class="index-container">
     <div class="top-nav">
-        <router-link :to="{path:'message', query:{typeId:4}}" class="icon icon-msg"></router-link>
+        <router-link :to="{path:'/message', query:{typeId:4}}" class="icon icon-msg"></router-link>
         <h1>钱生花</h1>
-        <router-link :to="{path:'setting'}" class="icon icon-setting"></router-link>
+        <router-link :to="{path:'/setting'}" class="icon icon-setting"></router-link>
     </div>
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="(item, i) in data.carouselbanner" :key="i" :style="{backgroundImage:'url('+item.banner+')'}">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="wrapper-pannel" v-if="data.overview">
-        <div class="title-bar">{{data.overview.nav}}<router-link :to="{name:'plat'}" class="more">更多</router-link></div>
+        <div class="title-bar">{{data.overview.nav}}<router-link :to="{path:'/plat'}" class="more">更多</router-link></div>
         <div class="plat-data">
                 <a href="javascript:;">
                 <i class="icon icon-users"></i>
@@ -54,7 +54,7 @@
     </div>
 
     <div class="wrapper-pannel" v-if="data.underlying">
-        <div class="title-bar">{{data.underlying.nav}} <router-link :to="{name:'debtList'}" class="more">更多</router-link></div>
+        <div class="title-bar">{{data.underlying.nav}} <router-link :to="{path:'/debtList'}" class="more">更多</router-link></div>
         <div class="targets" v-for="el in data.underlying.content">
             <a class="name" :href="filterUrl(el.link)">
                 <h3>{{el.title}}</h3>
@@ -146,10 +146,12 @@ export default {
     beforeCreate() {
         this.$store.registerModule('IndexModule', IndexModule);
         this.$store.dispatch('IndexModule/syncDate');
+        this.$parent.selected = 'index';
     },
     destroyed () {
         this.$store.unregisterModule('IndexModule');
     }
+      
 }
 </script>
 
@@ -164,12 +166,12 @@ export default {
 .mint-swipe-item{background-size: cover;background-position: 50% 50%;}
 .mint-swipe-item > a{display: block;height: 130px;}
 
-.imenu-list{background-color:#fff;margin-top:10px;border-top:1px solid #DCDCDC;}
+.imenu-list{background-color:#fff;margin-top:10px;border-top:1px solid #DCDCDC;min-height:228px;}
 .imenu-list .item{display:-webkit-box;display:-webkit-flex;display:flex;}
 .imenu-list .item>a{display:block;-webkit-box-flex:1;-webkit-flex:1;flex:1;border-bottom:1px solid #DCDCDC;border-right:1px solid #DCDCDC;-webkit-box-align:center;-webkit-align-items:center;align-items:center;text-align:center;font-size:0;padding:10px 0;color:#444;}
 .imenu-list .item>a:active{background-color:#f2f2f2;}
 .imenu-list .item>a:last-child{border-right:none;}
-.imenu-list .icon,.plat-data .icon,.safe-tip .icon{display:inline-block;width:40px;height:40px;background-image:url(http://static.hehenian.com/m/v4/images/index-icons.png);-webkit-background-size:120px auto;background-size:120px auto;}
+.imenu-list .icon,.plat-data .icon,.safe-tip .icon{display:inline-block;width:40px;height:40px;background-image:url(http://static.hehenian.com/m/v4/images/index-icons.png?v=20170614);-webkit-background-size:160px auto;background-size:160px auto;}
 .imenu-list .item p{font-size:12px;}
 .imenu-list .icon-welfare{background-position:0 0;}
 .imenu-list .icon-school{background-position:-40px 0;}
@@ -180,6 +182,9 @@ export default {
 .imenu-list .icon-balance{background-position:0 -80px;}
 .imenu-list .icon-assets{background-position:-40px -80px;}
 .imenu-list .icon-bill{background-position:-80px -80px;}
+.imenu-list .icon-steady{background-position:-120px 0;}
+.imenu-list .icon-month{background-position:-120px -40px;}
+.imenu-list .icon-more{background-position:-120px -80px;}
 
 .plat-data{display: -webkit-box;display: -webkit-flex;display: flex;height: 116px;}
 .plat-data a{-webkit-box-flex:1;-webkit-flex:1;flex:1;text-align: center;-webkit-box-align: center;-webkit-align-items: center;align-items: center;display: block;width: 100%;color: #6A3906;padding: 15px 0;}
