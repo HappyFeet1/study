@@ -35,4 +35,8 @@ em,i{font-style:normal;}
     display: inline-block;
     vertical-align: middle;
     margin-right: 5px;
-}    
+}
+.x-btn{padding:25px 10px;}
+.x-btn a{display:block;height:50px;line-height:50px;border-radius:25px;color:#fff;background-image:-webkit-linear-gradient(#E2B45E,#D59F4C);background-image:linear-gradient(#E2B45E,#D59F4C);text-align:center;font-size:16px;font-weight:bold;}
+.x-btn a:active{background-image:-webkit-linear-gradient(#D59F4C,#E2B45E);background-image:linear-gradient(#D59F4C,#E2B45E);}
+    

@@ -76,7 +76,7 @@ export default {
           this.added = true;
           this.$el.addEventListener('click', this.handleClick);
         });
-        return resolved.path;
+        return resolved;
       }else{
         this.$nextTick(() => {
             this.$el.addEventListener('click', ()=>{
@@ -182,6 +182,8 @@ export default {
 
       @descendent title {
         flex: 1;
+        align-items: center;
+        display: flex;
       }
 
       @descendent value {

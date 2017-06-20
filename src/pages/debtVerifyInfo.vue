@@ -59,7 +59,7 @@ export default {
                 this.loanFiles = debtData.loanFiles;
             } catch (e) {
                 this.$toast('访问参数无效');
-                this.$router.push({ name: 'main' });
+                this.$router.push({ name: '/' });
             }
         }
     }

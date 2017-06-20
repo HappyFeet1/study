@@ -49,20 +49,19 @@ export default {
                     userName: this.userName,
                     password: this.password,
                     code: this.code
-                }).then(res => res.data)
-                    .then(data => {
-                        if (data.result === 0) {
-                            this.toast(data.msg);
-                            this.$router.back();
-                        } else if (data.result === 2) {
-                            this.toast(this.needcode ? data.msg : '请输入验证码');
-                            this.needcode = true;
-                        }else if(data.result===3){
-                            this.toast(data.msg);
-                        }else{
-                            this.toast(data.msg||'登录失败');
-                        }
-                    });
+                }).then(data => {
+                    if (data.result === 0) {
+                        this.toast(data.msg);
+                        this.$router.back();
+                    } else if (data.result === 2) {
+                        this.toast(this.needcode ? data.msg : '请输入验证码');
+                        this.needcode = true;
+                    } else if (data.result === 3) {
+                        this.toast(data.msg);
+                    } else {
+                        this.toast(data.msg || '登录失败');
+                    }
+                });
             }
 
         },
@@ -98,11 +97,9 @@ export default {
     padding-top: 10px;
     padding-left: 10px;
 }
-
 .page-part {
     margin-top: 10px;
 }
-
 .form-export {
     height: 50px;
     padding: 0 10px;
@@ -110,19 +107,15 @@ export default {
     align-items: center;
     justify-content: space-between;
 }
-
 .form-export .register {
     float: left;
 }
-
 .form-export .forget-psw {
     float: right;
 }
-
 .form-export a {
     display: block;
 }
-
 .page-button-group {
     margin: 10px;
 }

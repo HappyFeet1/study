@@ -67,7 +67,7 @@ export default {
             this.$axios.get('/loan/loanRepayList.do', { params: this.params })
                 .then(res => {
                     setTimeout(() => {
-                        var data = res.data.list;
+                        var data = res.list;
                         if (!data.length) {
                             this.loading = -2;//没有查询结果
                         }else {

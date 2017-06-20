@@ -64,9 +64,9 @@
 <script>
 import verifyPay from '@/common/verifyPay';
 const titleObj = {
-    asset:'我的总资产',
-    total:'累计收益',
-    yesterday:'昨日受益'
+    asset: '我的总资产',
+    total: '累计收益',
+    yesterday: '昨日受益'
 }
 export default {
     data() {
@@ -81,11 +81,11 @@ export default {
             listLength: 0,
             startColor: [220, 160, 40],
             endColor: [150, 100, 10],
-            key:null,
+            key: null,
         }
     },
-    computed:{
-        assetTitle: function(){
+    computed: {
+        assetTitle: function () {
             return this.key ? titleObj[this.key] : '';
         }
     },
@@ -129,18 +129,18 @@ export default {
             }
         },
         syncDate: function (key) {
-            key = key||this.$route.query.key || 'asset';
-            if(this.key===key)return;
+            key = key || this.$route.query.key || 'asset';
+            if (this.key === key) return;
             this.list = [];
             this.$axios.post('/api/overview.do', { key: key })
                 .then(res => {
-                    if (res.data.code === -10000 || res.request.responseURL.indexOf('login/index.do') > -1) {
+                    if (res.code === -10000) {
                         setTimeout(() => {
-                            this.$router.push({ name: 'login' })
+                            this.$router.push({ path: '/login' })
                         }, 0)
                         return;
                     }
-                    let data = res.data.data;
+                    let data = res.data;
                     this.data.totalAssets = data.totalAssets;
                     this.data.totalInteres = data.totalInteres;
                     this.data.yesterdayInteres = data.yesterdayInteres;
@@ -153,7 +153,9 @@ export default {
                     this.key = key;
                 })
                 .catch(e => {
-                    console.log(e)
+                    setTimeout(() => {
+                        this.$router.push({ path: '/login' })
+                    }, 0)
                 })
         },
         gotoDetail(index) {
@@ -189,23 +191,19 @@ export default {
 </script>
 <style>
 @import '../../static/overview.css';
-
 .assets-chart {
     margin-top: 10px;
     background-color: #fff;
     padding-bottom: 5px;
     position: relative;
 }
-
 .assets-chart .title {
     font-size: 14px;
     padding: 10px;
 }
-
 .asset-list {
     margin: 0 10px;
 }
-
 .asset-list li {
     height: 40px;
     display: flex;
@@ -215,11 +213,9 @@ export default {
     position: relative;
     margin-bottom: 5px;
 }
-
 .asset-list li:active {
     background: #ccc;
 }
-
 .asset-list .level {
     position: absolute;
     top: 0;
@@ -228,14 +224,12 @@ export default {
     width: 0%;
     z-index: 1;
 }
-
 .asset-list .level .line {
     height: 40px;
     animation-name: level-slide;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
 }
-
 @keyframes level-slide {
     0% {
         width: 0%;
@@ -244,7 +238,6 @@ export default {
         width: 100%;
     }
 }
-
 .asset-list li span {
     display: block;
     position: relative;
@@ -254,7 +247,6 @@ export default {
     color: #fff;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
 }
-
 .asset-list li span.money {
     text-align: right;
 }

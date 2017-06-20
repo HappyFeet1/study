@@ -82,7 +82,7 @@ export default {
                     ok: function () {
                         that.$axios.post('/weixin/unBind.do')
                         .then(res=>{
-                            if (res.data.code == 0) {
+                            if (res.code == 0) {
                                 that.wxBind = false;
                             }
                         });
@@ -101,7 +101,7 @@ export default {
         if (this.isWeiXin) {
             this.$axios.post('/weixin/checkWxBind.do')
                 .then(res => {
-                    this.wxBind = !!res.data.code;
+                    this.wxBind = !!res.code;
                 })
         }
     }

@@ -12,6 +12,12 @@ Vue.filter('formatNumber', function (num, fix) {
     }
     return num;
 });
+Vue.filter('fixed2', function (num) {
+    num = Number(num);
+    num = num ? num : 0;
+    if (typeof num !== 'number') return num;
+    return num.toFixed(2);
+});
 Vue.filter('Date', function (date, format) {
     var date = new Date(date);
     var map = {
@@ -57,5 +63,18 @@ utils.getCookie = function (cname) {
     }
     return "";
 };
+
+utils.connectWebViewJavascriptBridge = function(callback) {
+  if (window.WebViewJavascriptBridge) {
+    callback(WebViewJavascriptBridge)
+  } else {
+    document.addEventListener('WebViewJavascriptBridgeReady', function() {
+      callback(WebViewJavascriptBridge)
+    }, false)
+  }
+};
+utils.connectWebViewJavascriptBridge(function(bridge) {
+    bridge.init(function(message, responseCallback) {});
+});
 
 export default utils;

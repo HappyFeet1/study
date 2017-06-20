@@ -14,7 +14,7 @@
             </div>
         </div>
     
-        <ul class="msg-list" v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+        <ul class="msg-list" v-infinite-scroll="asyncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <li v-for="(el, index) in loadData" :class="{'new-dot':el.readStatus==1}" @click="markReaded(el.id, index)">
                 <div class="content">
                     <div>
@@ -57,7 +57,7 @@ export default {
           this.loadData = [];
           this.filterRequest.pageNo = 1;
           this.loading = false;
-          this.syncData();
+          this.asyncData();
       }
     },
     computed: {
@@ -73,17 +73,17 @@ export default {
         toggle(id) {
             this.typeId = id;
         },
-        syncData() {
+        asyncData() {
             if (this.loading) return;
             this.loading = true;
             this.$axios.get('/api/queryMsgList.do', { params: this.filterRequest })
                 .then(res => {
-                    if(res.data.code===-10000||res.request.responseURL.indexOf('login/index.do') > -1){
+                    if(res.code===-10000){
                         this.$router.push({path:'/login'});
                         return;
                     }
                     setTimeout(() => {
-                        var data = res.data.list;
+                        var data = res.list;
                         if (this.filterRequest.pageNo === 1 && !data.length) {
                             this.loading = -2;//没有查询结果
                         } else if (this.filterRequest.pageNo > 1 && !data.length) {
@@ -98,7 +98,7 @@ export default {
                     
                 })
                 .catch(e => {
-                    console.log(e)
+                   this.$router.push({path:'/login'});
                 })
         },
         replaceBlank(str) {

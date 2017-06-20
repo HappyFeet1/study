@@ -68,11 +68,11 @@
             </div>
     
             <div class="target_menu">
-                <mt-cell title="借款人信息" :to="{name:'borrowInfo'}" is-link></mt-cell>
-                <mt-cell title="审核信息" :to="{name:'verifyInfo'}" is-link></mt-cell>
-                <mt-cell title="投标记录" :to="{name:'bidInfo',query:{id:businessNo}}" is-link></mt-cell>
-                <mt-cell title="还款计划" :to="{name:'repaymentInfo',query:{id:businessNo}}" is-link></mt-cell>
-                <mt-cell title="常见问题" :to="{name:'debtHelp'}" is-link></mt-cell>
+                <mt-cell title="借款人信息" :to="{path:'/debtList/borrowInfo'}" is-link></mt-cell>
+                <mt-cell title="审核信息" :to="{path:'/debtList/verifyInfo'}" is-link></mt-cell>
+                <mt-cell title="投标记录" :to="{path:'/debtList/bidInfo',query:{id:businessNo}}" is-link></mt-cell>
+                <mt-cell title="还款计划" :to="{path:'/debtList/repaymentInfo',query:{id:businessNo}}" is-link></mt-cell>
+                <mt-cell title="常见问题" :to="{path:'/debtList/debtHelp'}" is-link></mt-cell>
             </div>
         </div>
         <div class="target_btn">
@@ -91,21 +91,21 @@ export default {
         }
     },
     methods: {
-        syncLoad() {
+        asyncLoad() {
             this.$indicator.open({
                 text: '加载中...',
                 spinnerType: 'fading-circle'
             });
             this.$axios.get('/loan/loanInfo.do', { params: { businessNo: this.businessNo } })
                 .then(res => {
-                    this.data = res.data.loanInfo;
-                    sessionStorage.setItem('debtData', JSON.stringify(res.data));
+                    this.data = res.loanInfo;
+                    sessionStorage.setItem('debtData', JSON.stringify(res));
                     this.$indicator.close();
                 })
         }
     },
     beforeMount() {
-        this.syncLoad();
+        this.asyncLoad();
     },
     components: {
         'mt-cell': Cell

@@ -1,33 +1,64 @@
 <template>
     <div class="container">
-        <mt-header title="VIP活动">
-            <a href="javascript:;" @click="$router.back()" slot="left">
-                <mt-button icon="back">返回</mt-button>
-            </a>
-        </mt-header>
-        <div class="vip-wrapper" :style="{'background-image':'url('+backgroundTop+')'}">
-            <div class="vip-wrapper-in">
-                <div class="vip-article">
-                    <div v-html="article.content"></div>
+        <div class="vip-article-body" :style="{'background-image':'url('+backgroundTop2+')','background-color':backgroundColor2}">
+            <mt-header title="VIP活动">
+                <a href="javascript:;" @click="$router.back()" slot="left">
+                    <mt-button icon="back">返回</mt-button>
+                </a>
+            </mt-header>
+            <div class="vip-wrapper" id="article" :style="{'background-image':'url('+backgroundTop+')'}">
+                <div class="vip-wrapper-in">
+                    <div class="vip-article">
+                        <div v-html="article.content"></div>
+                    </div>
+                    <div class="quik-link">
+                        <h3>钱生花活动小喇叭</h3>
+                        <ul>
+                            <li v-html="prevUrl" @click="review">
+                            </li>
+                            <li v-html="nextUrl" @click="review">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="copyright">所有解释权归深圳市彩付宝科技有限公司所有</div>
                 </div>
-                <div class="quik-link">
-                    <h3>钱生花活动小喇叭</h3>
-                    <ul>
-                        <li>·
-                            <div v-html="prevUrl"></div>
-                        </li>
-                        <li>·
-                            <div v-html="nextUrl"></div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="copyright">所有解释权归深圳市彩付宝科技有限公司所有</div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import loadScript from 'static/js/loadScript.js';
+import { mapState } from 'vuex';
+let weixinShare = function (wx, data) {
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: data.appId, // 必填，企业号的唯一标识
+        timestamp: data.timestamp, // 必填，生成签名的时间戳
+        nonceStr: data.nonceStr, // 必填，生成签名的随机串
+        signature: data.signature,// 必填，签名，见附录1
+        jsApiList: [
+            'checkJsApi',
+            'openLocation',
+            'getLocation',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+        wx.onMenuShareTimeline({//分享到朋友圈
+            title: share.title, // 分享标题
+            link: share.link, // 分享链接
+            imgUrl: share.pic,
+            desc: share.content
+        });
+        wx.onMenuShareAppMessage({//分享给朋友
+            title: share.title, // 分享标题
+            desc: share.content,
+            link: share.link, // 分享链接
+            imgUrl: share.pic // 分享图标
+        });
+    });
+}
 export default {
     data() {
         return {
@@ -37,14 +68,103 @@ export default {
             prevUrl: '',
             nextUrl: '',
             backgroundTop: '',
-            backgroundColor: ''
+            backgroundColor: '',
+            backgroundTop2: '',
+            backgroundColor2: '',
         }
     },
-    methods: {
-
+    computed: {
+        ...mapState([
+            'isWeiXin',
+            'isApp'
+        ])
     },
-    beforeMount() {
+    methods: {
+        review:function(){
+            setTimeout(()=>{
+                location.reload();
+            },300)
+        },
+        share: function (share) {
+            share = share || {
+                title: '钱生花',
+                content: '钱生花是花样年集团倾力打造的互联网金融P2P信贷平台，为有小额贷款,薪金贷,业主贷,生意贷,等需求的借款人和有理财需求的出借人提供高安全、高收益的互联网理财服务。',
+                link: 'http://m.hehenian.com',
+                picUrl: 'http://static.hehenian.com/p/images/app_qr.png'
+            };
+            if (this.isApp) {
+                this.$utils.connectWebViewJavascriptBridge(function (bridge) {
+                    bridge.callHandler('setTopBarBtn', { label: '分享', click: 'setPosition', url: location.href }, function (responseData) {
+                    });
+                    bridge.registerHandler('setPosition', function (data, responseCallback) {
+                        bridge.callHandler('sharePrefectureInfo', {
+                            title: share.title, // 分享标题
+                            content: share.content,
+                            link: location.href, // 分享链接
+                            picUrl: share.pic,
+                        }, function (responseData) { });
+                    });
+                });
+            } else if (this.isWeiXin) {
+                $.ajax({
+                    url: '/activity/getWeiXinInfo.do',
+                    dataType: 'json',
+                    data: { url: location.href },
+                    success: function (data) {
+                        if (data.code === 0) {
+                            data = data.data;
+                            if (window.wx) {
+                                weixinShare(window.wx, data);
+                            } else {
+                                loadScript('static/js/jweixin-1.2.0.js', function () {
+                                    weixinShare(window.wx, data);
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    },
+    created() {
+        this.$axios.get('/api/articleDetail.do', { params:{id: this.$route.query.id, typeId:this.$route.query.typeId||18, url:encodeURIComponent('#/vip/activityDetail')} })
+        .then(data=>{
+                var format = function (str) {
+                    str = decodeURIComponent(str || '');
+                    return str;
+                }
+                this.article = data.articleDo;
+                this.prevUrl = '·'+(format(data.prevUrl) || '前面没有文章了');
+                this.nextUrl = '·'+(format(data.nextUrl) || '后面没有文章了');
 
+                var coverImage;
+                try {
+                    coverImage = data.articleDo.coverImage.split('|')[0].split(',');
+                } catch (e) {
+                    coverImage = new Array(4);
+                }
+                this.backgroundTop = coverImage[1];
+                this.backgroundColor = '#fff';
+                this.backgroundTop2  = coverImage[2];
+                this.backgroundColor2  = coverImage[3];
+
+                var innerWidth = window.innerWidth;
+                setTimeout(()=>{
+                    // $('.vip-article').find('img').css({ width: '100%', height: 'auto' });
+                    document.querySelectorAll('#article img').forEach((el)=>{
+                        el.style.width='100%';
+                        el.style.height='auto';
+                    })
+                    // setInterval(function(){
+                    this.share({
+                        title: data.articleDo.title,
+                        link: data.articleDo.url,
+                        pic: coverImage[0],
+                        content: data.articleDo.summary
+                    });
+                    // },2000)
+                }, 100)
+        });
     }
 }
 </script>
@@ -57,13 +177,13 @@ export default {
     background-size: 100% auto;
     background-position: 50% 0;
     background-repeat: no-repeat;
+    padding-bottom: 20px;
 }
 html {
     position: relative;
     min-height: 100%;
 }
-body {
-    padding-bottom: 10%;
+.vip-article-body {
     /* background-image: url('http://static.hehenian.com/m/v4/images/vip/vip_bottom_bg.jpg?v=e531462'); */
     -webkit-background-size: 100% auto;
     background-size: 100% auto;

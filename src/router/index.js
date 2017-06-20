@@ -4,7 +4,8 @@ import Home from '@/pages/main';
 
 Vue.use(Router);
 
-const router = new Router({
+
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -12,10 +13,15 @@ const router = new Router({
       component: Home,
       children: [
         { path: '', component: resolve => require(['@/pages/index'], resolve) },
-        { path: '/project', name: 'project', component: resolve => require(['@/pages/project'], resolve) },
+        { path: '/project', name: 'project', component: resolve => require(['@/pages/project/index'], resolve) },
         { path: '/mine', name: 'mine', component: resolve => require(['@/pages/mine'], resolve) },
       ]
     },
+
+    { path: '/project/info', component: resolve => require(['@/pages/project/info'], resolve) },
+    { path: '/project/detail', component: resolve => require(['@/pages/project/detail'], resolve) },
+    { path: '/project/more', component: resolve => require(['@/pages/project/more'], resolve) },
+
     { path: '/login', component: resolve => require(['@/pages/login'], resolve) },
     { path: '/message', component: resolve => require(['@/pages/message'], resolve) },
     { path: '/setting', component: resolve => require(['@/pages/setting'], resolve) },
@@ -42,7 +48,21 @@ const router = new Router({
     { path: '/vip/activity',component: resolve => require(['@/pages/vip/activity'], resolve) },
     { path: '/vip/activityDetail',component: resolve => require(['@/pages/vip/activityDetail'], resolve) },
 
+    { path: '/help',component: resolve => require(['@/pages/help/'], resolve) },
+    { path: '/help/3safe',component: resolve => require(['@/pages/help/3safe'], resolve) },
+    { path: '/help/about',component: resolve => require(['@/pages/help/about'], resolve) },
+    { path: '/help/feedback',component: resolve => require(['@/pages/help/feedback'], resolve) },
+    { path: '/help/center',component: resolve => require(['@/pages/help/center'], resolve) },
+    { path: '/help/center-beginner',component: resolve => require(['@/pages/help/center-beginner'], resolve) },
+    { path: '/help/center-account',component: resolve => require(['@/pages/help/center-account'], resolve) },
+    { path: '/help/center-financing',component: resolve => require(['@/pages/help/center-financing'], resolve) },
+    { path: '/help/center-increase',component: resolve => require(['@/pages/help/center-increase'], resolve) },
+    { path: '/help/center-security',component: resolve => require(['@/pages/help/center-security'], resolve) },
+    { path: '/help/center-others',component: resolve => require(['@/pages/help/center-others'], resolve) },
+    
 
   ]
 });
+
+
 export default router;

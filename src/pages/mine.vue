@@ -70,7 +70,7 @@
                     <i class="icon icon-vipClub"></i>
                     <p>VIP俱乐部</p>
                 </router-link>
-                <router-link to="/helper">
+                <router-link to="/help">
                     <i class="icon icon-helper"></i>
                     <p>助手</p>
                 </router-link>
@@ -165,13 +165,13 @@ export default {
         syncDate: function () {
             this.$axios.get('/api/mineAccount.do')
                 .then(res => {
-                    if (res.data.code === -10000 || res.request.responseURL.indexOf('login/index.do') > -1) {
+                    if (res.code === -10000) {
                         setTimeout(() => {
-                            this.$router.push({ name: 'login' })
+                            this.$router.push({ path: '/login' })
                         }, 0)
                         return;
                     }
-                    let data = res.data.data;
+                    let data = res.data;
                     this.data.totalAssets = data.totalAssets;
                     this.data.totalInteres = data.totalInteres;
                     this.data.yesterdayInteres = data.yesterdayInteres;
@@ -181,7 +181,7 @@ export default {
                     this.data.income = data.income;
                 })
                 .catch(e => {
-                    console.log(e)
+                    this.$router.push({ path: '/login' });
                 })
         },
         recharge() {

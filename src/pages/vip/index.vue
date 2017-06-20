@@ -122,9 +122,9 @@ export default {
         }
     },
     methods: {
-        syncData: function () {
+        asyncData: function () {
             this.$axios.get('/api/vip.do')
-                .then(({ data }) => {
+                .then(data => {
                     if (data.code === 0) {
                         this.data = data.data;
                     } else {
@@ -134,7 +134,7 @@ export default {
         }
     },
     beforeMount() {
-        this.syncData();
+        this.asyncData();
     }
 }
 </script>

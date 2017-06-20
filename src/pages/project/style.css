@@ -1,0 +1,110 @@
+.product-meta{margin:10px 0;background: #fff;padding:20px 10px;}
+.product-meta ul{display: -webkit-box;display: -webkit-flex;display: flex;}
+.product-meta li{-webkit-box-flex:1;-webkit-flex:1;flex:1;text-align: center;}
+.product-meta li p{font-size: 32px;line-height: 1;}
+.product-meta li p sub{font-size: 16px;position: relative;top: -8px;}
+.product-meta li span{position: relative;top: -4px;font-size: 14px;color: #212121;}
+.product-meta li.label{width:7.5em;text-align: left;color: #000;-webkit-box-flex:none;-webkit-flex:none;flex:none;}
+.product-meta .progress{height: 14px;background: #ccc;border-radius: 7px;position: relative;bottom: -3px;overflow: hidden;font-size: 0;}
+.product-meta .progress .cur{width: 0;font-size: 0;overflow: hidden;height: 14px;border-radius: 7px;background: #FFB002;-webkit-transition: all 1s ease-in;transition: all 1s ease-in;}
+
+.cGreen{color: #088231;}
+
+.product-info{background: #fff;color: #111;padding:20px 10px;}
+.product-info dt,
+.product-info dd{display: -webkit-box;display: -webkit-flex;display: flex;padding: 0 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding: 10px 0;}
+.product-info dd{border-bottom: 1px solid #E5E5E5;}
+.product-info dd:last-child{border-bottom: none;}
+.product-info .left,
+.product-info .right{-webkit-box-flex:1;-webkit-flex:1;flex:1;display: block;width: 100%;}
+.product-info .right{text-align: right;}
+.product-info h2{font-size: 17px;}
+.product-info h2 span{font-size: 12px;color: #666;}
+.product-info .label{color: #666;}
+
+.product-buy{height: 48px;}
+.product-buy a{display: block;position: fixed;height: 48px;line-height: 48px;color: #fff;background: #B7761C;font-size: 18px;text-align: center;width: 100%;bottom: 0;left: 0;}
+
+.product-detial{}
+.product-detial dl{background: #fff;padding: 10px;}
+.product-detial dt{font-size: 17px;font-weight: 600;padding-bottom: 5px;}
+.product-detial dt i{display: inline-block;width: 16px;height: 16px;background-image: url('http://static.hehenian.com/m/v4/images/product_detail_icon.png');-webkit-background-size: 16px auto;background-size: 16px auto;position: relative;bottom: -1px;margin-right: 5px;}
+.product-detial dt i.t1{background-position: 0 0px;}
+.product-detial dt i.t2{background-position: 0 -16px;}
+.product-detial dt i.t3{background-position: 0 -32px;}
+.product-detial dt i.t4{background-position: 0 -48px;}
+.product-detial dt i.t5{background-position: 0 -64px;}
+.product-detial dt i.t6{background-position: 0 -80px;}
+.product-detial dt i.t7{background-position: 0 -96px;}
+.product-detial dt i.t8{background-position: 0 -112px;}
+.product-detial dd{border-bottom: 1px solid #eee;padding-bottom: 10px;}
+.product-detial table{width: 100%;}
+.product-detial table td{padding: 5px 0;}
+
+.targets-icon-data{display: -webkit-box;display: -webkit-flex;display: flex;padding-top: 20px;}
+.targets-icon-data li{-webkit-box-flex:1;-webkit-flex:1;flex:1;text-align: center;font-size: 18px;}
+.targets-icon-data li p{font-size: 16px;padding-top: 5px;color: #555;}
+.targets-icon-data i{display: inline-block;width: 30px;height: 30px;line-height: 30px;text-align: center;color: #fff;font-weight: 600;border-radius: 3px;}
+.targets-icon-data i.i1{background-image:linear-gradient(#127F4C,#2AB473);background-image:-webkit-linear-gradient(#127F4C,#2AB473);}
+.targets-icon-data i.i2{background-image:linear-gradient(#0C7AA9,#28A7DD);background-image:-webkit-linear-gradient(#0C7AA9,#28A7DD);}
+.targets-icon-data i.i3{background-image:linear-gradient(#9C910C,#EDE362);background-image:-webkit-linear-gradient(#9C910C,#EDE362);}
+.targets-icon-data i.i4{background-image:linear-gradient(#964205,#CB5A07);background-image:-webkit-linear-gradient(#964205,#CB5A07);}
+.risk-level-bar{margin: 20px 10px 0;text-align: center;background-image: url('http://static.hehenian.com/m/v4/images/risk_level_bar.png');-webkit-background-size: 100% auto;background-size: 100% auto;background-position: 50% 50%;background-repeat: no-repeat;color: #666;}
+.risk-level-bar p{padding: 5px;}
+
+.riskview-table{width: 100%;text-align: center;margin-top: 20px;}
+.riskview-table .A,
+.riskview-table .B,
+.riskview-table .C,
+.riskview-table .D{padding: 5px 0;color: #fff;font-weight: 600;}
+.riskview-table .A{background-color: #26AC6E;border: 1px solid #26AC6E;}
+.riskview-table .B{background-color: #29A8DF;border: 1px solid #29A8DF;}
+.riskview-table .C{background-color: #E4D948;border: 1px solid #E4D948;}
+.riskview-table .D{background-color: #CB5A07;border: 1px solid #CB5A07;}
+.riskview-table .cnt td{padding: 20px 0;border: 1px solid #eee;}
+
+/* .targets-tab{display: -webkit-box;display: -webkit-flex;display: flex;text-align: center;}
+.targets-tab li{-webkit-box-flex:1;-webkit-flex:1;flex:1;border-bottom: 2px solid #fff;padding: 5px 0;color: #777;letter-spacing: 4px;}
+.targets-tab li.on{border-bottom: 2px solid #BA6B0F;color: #111;} */
+.targets-table{width: 100%;margin: 10px 0;}
+.targets-table td{padding: 10px 0;border-bottom: 1px solid #eee;}
+.targets-table tr:last-child td{border-bottom: none;}
+.targets-table td:last-child{text-align: right;}
+.targets-table td p{max-width: 12em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.targets-table i{display: inline-block;width: 30px;height: 30px;text-align: center;line-height: 30px;color: #fff;border-radius: 3px;font-size: 18px;font-weight: 600;}
+.targets-table i.A{background: #26AC6E;}
+.targets-table i.B{background: #29A8DF;}
+.targets-table i.C{background: #E4D948;}
+.targets-table i.D{background: #CB5A07;}
+
+.targets-article{background: #fff;margin: 10px 0;padding:10px 20px 20px;}
+.targets-article h1{color: #B7761C;font-size: 16px;text-align: center;padding:10px 0 10px;}
+.targets-article h2,
+.targets-article p{font-size: 14px;color: #111;padding: 5px 0;}
+.targets-article ul{color: #666;font-size: 12px;}
+.targets-article ul li{padding-left: 2em;}
+
+.fixed-btn-wrapper {
+	width: 100%;
+	margin-top: 0px;
+	max-width: 640px;
+	margin: 0 auto;
+	height: 0;
+    margin-top: 58px;
+    overflow: hidden;
+}
+.fixed-btn,.fixed-btn:visited {
+	display: block;
+	position: fixed;
+	bottom: 0px;
+	text-align: center;
+	padding: 12px 0px;
+	font-size: 16px;
+	color: #fff;
+	background: #b7761c;
+	width: 100%;
+	letter-spacing: 1px;
+	max-width: 640px;
+    z-index: 10;
+}
+.fixed-btn:acitve{color: #fff;background: #8B5508;}

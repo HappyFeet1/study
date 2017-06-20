@@ -5,7 +5,7 @@
                 <mt-button icon="back">返回</mt-button>
             </a>
         </mt-header>
-        <div class="vip-activitys" v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+        <div class="vip-activitys" v-infinite-scroll="asyncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <router-link class="item" :to="{path:'/vip/activityDetail',query:{type:el.articleType.id,id:el.id}}" v-for="(el,i) in loadData" :key="i">
                 <div class="img" :style="{'background-image':'url('+getImageCover(el.coverImage)+')'}">
                     <i :class="el.status==1?'ing':'review'"></i>
@@ -53,13 +53,13 @@ export default {
         'mt-spinner': Spinner
     },
     methods: {
-        syncData() {
+        asyncData() {
             if (this.loading) return;
             this.loading = true;
             this.$axios.get('/api/queryVipInformation.do', { params: this.filterRequest })
                 .then(res => {
                     setTimeout(() => {
-                        var data = res.data.page;
+                        var data = res.page;
                         if (this.filterRequest.pageNo === 1 && !data.length) {
                             this.loading = -2;//没有查询结果
                         } else if (this.filterRequest.pageNo > 1 && !data.length) {

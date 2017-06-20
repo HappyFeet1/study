@@ -28,7 +28,7 @@
                 </ul>
             </div>
         </div>
-        <div :class="{'targets-list':selected==1,'transfer-list':selected==2}" v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+        <div :class="{'targets-list':selected==1,'transfer-list':selected==2}" v-infinite-scroll="asyncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <div v-for="el in loadData">
             <router-link class="item" :to="{path:'/debtList/debtDetail',query:{'id':el.businessNo}}" v-if="selected==1">
                 <dl>
@@ -129,13 +129,13 @@ export default {
         'mt-spinner': Spinner
     },
     methods: {
-        syncData(){
+        asyncData(){
             let src = this.selected==1?'/loan/list.do':'/loan/debtList.do';
             this.loading = true;
             this.$axios.get(src, {params: this.params})
             .then(res=>{
                     setTimeout(() => {
-                        var data = res.data.list;
+                        var data = res.list;
                         if (this.params.pageNo === 1 && !data.length) {
                             this.loading = -2;//没有查询结果
                         } else if (this.params.pageNo > 1 && !data.length) {
@@ -154,7 +154,7 @@ export default {
             this.loading = false;
             this.params.pageNo = 1;
             this.params.sortOrder = 'desc';
-            this.syncData();
+            this.asyncData();
         },
         getTransferStatus(status){
             if(status==1){
@@ -173,7 +173,7 @@ export default {
                 this.loadData = [];
                 this.loading = false;
                 this.params.pageNo = 1;
-                this.syncData();
+                this.asyncData();
             }else{
                 this.params.sortName=sortName;
                 this.refresh();

@@ -14,7 +14,7 @@
                         <th>金额</th>
                     </tr>
                 </thead>
-                <tbody v-infinite-scroll="syncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+                <tbody v-infinite-scroll="asyncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
                     <tr v-for="el in loadData">
                         <td>{{el.investName}}</td>
                         <td>{{el.investTime}}</td>
@@ -55,12 +55,14 @@ export default {
         }
     },
     methods: {
-        syncData() {
+        asyncData() {
             this.loading = true;
-            this.$axios.get('loan/loanInvestList.do', { params: this.params })
+            this.$axios.get('/loan/loanInvestList.do', { params: this.params })
                 .then(res => {
+                    console.log(1111111111)
+                    console.log(res)
                     setTimeout(() => {
-                        var data = res.data.list;
+                        var data = res.list;
                         if (this.params.pageNo === 1 && !data.length) {
                             this.loading = -2;//没有查询结果
                         } else if (this.params.pageNo > 1 && !data.length) {
