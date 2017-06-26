@@ -97,7 +97,7 @@
     </div>
 
     <div class="wrapper-pannel" v-if="data.news">
-        <div class="title-bar">社区服务<a href="http://capi.hehenian.com/page/shop/goodsList.html?siteId=10001&v=20160725" class="more">更多</a></div>
+        <div class="title-bar">社区服务<router-link to="/articleList" class="more">更多</router-link></div>
         <div class="acitvity-list clearfix">
             <div v-for="el in data.news.data">
                 <h3><a :href="filterUrl(el.nav)">{{el.name}}</a></h3>

@@ -57,7 +57,8 @@
         </div>
         <div class="user-rights">
             <h3>{{data.vipCode?(vipName[data.vipCode-1]+'特权'):'非VIP会员'}}
-                <router-link v-show="$store.state.isWeiXin" class="icon" to="/vip/issue"></router-link>
+                <!--<router-link v-show="$store.state.isWeiXin" class="icon" to="/vip/issue"></router-link>-->
+                <router-link class="icon" to="/vip/issue"></router-link>
             </h3>
             <ul>
                 <li :class="{light:data.vipCode>0}">
@@ -118,7 +119,8 @@
 export default {
     data() {
         return {
-            data: {}
+            data: {},
+            vipName: ['白银会员','黄金会员','铂金会员','钻石会员'],
         }
     },
     methods: {
@@ -131,10 +133,35 @@ export default {
                         this.$toast('服务器出差了，刷新重新试~')
                     }
                 })
+        },
+        webviewBridge: function() {
+            var vipApp = this;
+            this.$utils.connectWebViewJavascriptBridge(function(bridge) {
+                var img = /android/i.test(navigator.userAgent) ? 'http://static.hehenian.com/m/v4/images/app/issue_android.png' : 'http://static.hehenian.com/m/v4/images/app/issue.png';
+                bridge.callHandler('setTopBarIcon',{icon:img,click:'setTopBarIconCalljs',refresh:true,url:location.href}, function(responseData) {});
+                bridge.registerHandler('setTopBarIconCalljs', function(data, responseCallback) {
+                    vipApp.$router.push({
+                        path:'/vip/issue'
+                    });
+                });
+            });
+        },
+        encourage: function () {
+            var vipCode = parseFloat(this.data.vipCode),
+                amount = parseFloat(this.data.amount),
+                level = [500000, 1000000, 5000000, 10000000];
+
+            if (vipCode > 3) {
+                return '继续保持当前等级，可尊享更优质的服务喔';
+            } else {
+                var name = ['白银会员', '黄金会员', '铂金会员', '钻石会员'][vipCode ? vipCode : 0];
+                return '距离升级成' + name + '还差：<span>' + this.$utils.formatNumber(Math.abs(level[vipCode ? vipCode : 0] - amount), 2) + '</span> 元'
+            }
         }
     },
     beforeMount() {
         this.asyncData();
+        this.webviewBridge();
     }
 }
 </script>

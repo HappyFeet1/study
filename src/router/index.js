@@ -34,6 +34,7 @@ let router = new Router({
     { path: '/debtList/bidInfo', component: resolve => require(['@/pages/debtDidInfo'], resolve) },
     { path: '/debtList/repaymentInfo', component: resolve => require(['@/pages/debtRepaymentInfo'], resolve) },
     { path: '/debtList/debtHelp', component: resolve => require(['@/pages/debtHelp'], resolve) },
+    { path: '/debtList/debtBuy', component: resolve => require(['@/pages/debtBuy'], resolve) },
 
     { path: '/overview', component: resolve => require(['@/pages/overview'], resolve) },
 
@@ -47,9 +48,15 @@ let router = new Router({
 
     { path: '/vip/activity',component: resolve => require(['@/pages/vip/activity'], resolve) },
     { path: '/vip/activityDetail',component: resolve => require(['@/pages/vip/activityDetail'], resolve) },
+    { path: '/vip/issue',component: resolve => require(['@/pages/vip/issue'], resolve) },
+
+    { path: '/articleList',component: resolve => require(['@/pages/articleList'], resolve) },
+    { path: '/articleDetail',component: resolve => require(['@/pages/articleDetail'], resolve) },
+    
 
     { path: '/help',component: resolve => require(['@/pages/help/'], resolve) },
     { path: '/help/3safe',component: resolve => require(['@/pages/help/3safe'], resolve) },
+    { path: '/help/debtSafe',component: resolve => require(['@/pages/help/debtSafe'], resolve) },
     { path: '/help/about',component: resolve => require(['@/pages/help/about'], resolve) },
     { path: '/help/feedback',component: resolve => require(['@/pages/help/feedback'], resolve) },
     { path: '/help/center',component: resolve => require(['@/pages/help/center'], resolve) },
@@ -60,6 +67,21 @@ let router = new Router({
     { path: '/help/center-security',component: resolve => require(['@/pages/help/center-security'], resolve) },
     { path: '/help/center-others',component: resolve => require(['@/pages/help/center-others'], resolve) },
     
+    { path: '/invest/detail',component: resolve => require(['@/pages/invest/detail'], resolve) },
+    { path: '/invest/fundFlow',component: resolve => require(['@/pages/invest/fundFlow'], resolve) },
+    
+    //hack avalon router
+    { path: '*', beforeEnter:()=>{
+      if(window.location.hash.indexOf('#/!')>-1){
+        router.push({
+          path: window.location.hash.replace('#/!','')
+        });
+      }else{
+        router.push({
+          path: '/404'
+        });
+      }
+    }}
 
   ]
 });

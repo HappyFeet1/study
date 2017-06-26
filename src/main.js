@@ -1,23 +1,22 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import App from './App';
-import router from './router';
-import axios from 'axios';
+import Vue       from 'vue';
+import App       from './App';
+import router    from './router';
+import axios     from 'axios';
 
-import store from './store/';
-import '../static/main.css';
-import utils from '../static/js/utils';
+import store     from './store/';
+import utils     from '../static/js/utils';
 
-import modal from '@/components/modal/';
-import toast from 'mint-ui/lib/toast/';
+import modal     from '@/components/modal/';
+import toast     from 'mint-ui/lib/toast/';
 import indicator from 'mint-ui/lib/indicator/';
 
+import '../static/main.css';
 import 'mint-ui/lib/toast/style.css';
 import 'mint-ui/lib/indicator/style.css';
 
 axios.defaults.baseURL = (process.env.NODE_ENV === 'development') ? '' : 'http://m.hehenian.com';
-// axios.defaults.baseURL = 'http://m.hehenian.com';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;
 

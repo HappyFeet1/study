@@ -1,9 +1,10 @@
 import $modal from '@/components/modal/';
 import axios from 'axios';
 //支付验证
-export default function (callback) {
+export default function (callback, redirectUrl) {
+    redirectUrl = redirectUrl || encodeURIComponent(location.href);
     axios.post('/finance/setUp.do')
-        .then(({data}) => {
+        .then(data => {
             if (data.returnCode == 5) {
                 //实名认证
                 $modal({
@@ -12,7 +13,7 @@ export default function (callback) {
                     okText: '立即认证',
                     cancelText: '取消',
                     ok: function () {
-                        document.location.href = 'http://m.hehenian.com/account/realAuth.do';
+                        document.location.href = 'http://m.hehenian.com/account/realAuth.do?remoteAddr=' + redirectUrl;
                     },
                     cancel: function () {
 
@@ -26,7 +27,7 @@ export default function (callback) {
                     okText: '立即设置',
                     cancelText: '取消',
                     ok: function () {
-                        document.location.href = 'http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay';
+                        document.location.href = 'http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay&urlfrom=' + redirectUrl;
                     },
                     cancel: function () {
 
@@ -40,7 +41,7 @@ export default function (callback) {
                     okText: '立即绑卡',
                     cancelText: '取消',
                     ok: function () {
-                        document.location.href = "http://m.hehenian.com/profile/managerCard.do";
+                        document.location.href = "http://m.hehenian.com/profile/managerCard.do?urlfrom=" + redirectUrl;
                     },
                     cancel: function () {
 

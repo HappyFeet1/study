@@ -106,20 +106,16 @@ export default {
                     });
                 });
             } else if (this.isWeiXin) {
-                $.ajax({
-                    url: '/activity/getWeiXinInfo.do',
-                    dataType: 'json',
-                    data: { url: location.href },
-                    success: function (data) {
-                        if (data.code === 0) {
-                            data = data.data;
-                            if (window.wx) {
+                this.$axios.get('/activity/getWeiXinInfo.do',{params:{url: location.href}})
+                .then(data=>{
+                    if (data.code === 0) {
+                        data = data.data;
+                        if (window.wx) {
+                            weixinShare(window.wx, data);
+                        } else {
+                            loadScript('static/js/jweixin-1.2.0.js', function () {
                                 weixinShare(window.wx, data);
-                            } else {
-                                loadScript('static/js/jweixin-1.2.0.js', function () {
-                                    weixinShare(window.wx, data);
-                                });
-                            }
+                            });
                         }
                     }
                 });

@@ -47,7 +47,7 @@
                     <div class="product_inner">
                         <div class="inner_item">
                             <div class="inner_rate">
-                                <p>{{item.rate}}
+                                <p>{{item.rate*100|fixed2}}
                                     <i>%</i>
                                 </p>
                                 <p>预期年化收益率</p>

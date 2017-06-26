@@ -29,6 +29,7 @@ em,i{font-style:normal;}
     height: 50px;
     line-height: 50px;
     background-color: #fff;
+    margin: 10px;
 }
 
 .page-infinite-loading div {

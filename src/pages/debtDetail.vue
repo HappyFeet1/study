@@ -75,8 +75,8 @@
                 <mt-cell title="常见问题" :to="{path:'/debtList/debtHelp'}" is-link></mt-cell>
             </div>
         </div>
-        <div class="target_btn">
-            <router-link v-show="data.borrowStatus==1" :to="'/debtBuy/'+data.businessNo">立即投标</router-link>
+        <div class="target_btn" ref="fixBtn" v-show="data.borrowStatus==1">
+            <router-link :to="{path:'/debtList/debtBuy', query:{businessNo:data.businessNo}}">立即投标</router-link>
         </div>
     </div>
 </template>
@@ -86,7 +86,7 @@ import 'mint-ui/lib/cell/style.css';
 export default {
     data() {
         return {
-            businessNo: this.$route.query.id,
+            businessNo: this.$route.query.businessNo,
             data: {}
         }
     },
@@ -107,188 +107,19 @@ export default {
     beforeMount() {
         this.asyncLoad();
     },
+    mounted(){
+        document.body.appendChild(this.$refs.fixBtn);
+    },
     components: {
         'mt-cell': Cell
     },
+    beforeDestroy(){
+        this.$refs.fixBtn.parentNode.removeChild(this.$refs.fixBtn);
+    }
 }
 </script>
 
 <style>
-.target {
-    background: #fff;
-}
-
-.target .title {
-    color: #191919;
-    font-size: 16px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-}
-
-.target .title span {
-    color: #7f7f7f;
-    font-size: 12px;
-}
-
-.info {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    padding-bottom: 20px;
-}
-
-.info .info_item {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-}
-
-.info .info_item p {
-    text-align: center;
-    font-size: 13px;
-    color: #212121;
-}
-
-.info .info_item p:first-child {
-    color: #ef702c;
-    font-size: 16px;
-}
-
-.target_list {
-    position: relative;
-    /* pointer-events: none; */
-}
-
-.target_list .status {
-    position: absolute;
-    right: 0;
-    bottom: 10px;
-    width: 100px;
-    height: 100px;
-    -webkit-background-size: contain;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-}
-
-@media (max-width: 320px) {
-    .target_list .status {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-.target_list .status-1 {
-    background-image: url('http://static.hehenian.com/m/v4/images/signet-1.png');
-}
-
-.target_list .status-2 {
-    background-image: url('http://static.hehenian.com/m/v4/images/signet-2.png');
-}
-
-.target_list .status-3 {
-    background-image: url('http://static.hehenian.com/m/v4/images/signet-3.png');
-}
-
-.target_list .status-4 {
-    background-image: url('http://static.hehenian.com/m/v4/images/signet-4.png');
-}
-
-.target_list .status-5 {
-    background-image: url('http://static.hehenian.com/m/v4/images/signet-5.png');
-}
-
-.target_list ul {
-    padding-bottom: 10px;
-}
-
-.target_list:after {
-    content: '';
-    display: block;
-    height: 10px;
-    background: #eee;
-    margin-left: -20px;
-}
-
-.target_list ul li {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    padding: 3px 0px;
-    font-size: 14px;
-}
-
-.target_list ul li label {
-    width: 110px;
-    text-align: left;
-    color: #666;
-    padding-left: 15px;
-}
-
-.target_list ul li .text {
-    /*     -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1; */
-}
-
-.org {
-    color: #ef702c;
-}
-
-.target_list ul li .text .link {
-    color: #32884f
-}
-
-.bar_text {
-    font-size: 14px;
-    color: #ef702c;
-    margin-right: 15px;
-    margin-left: 10px;
-}
-
-.target_list ul li .text .bar {
-    width: 180px;
-    height: 12px;
-    background: #cccccc;
-    border-radius: 12px;
-    height: 12px;
-}
-
-.target_list ul li .text .bar .cur_bar {
-    float: left;
-    background: #ef702c;
-    border-radius: 12px;
-    height: 12px;
-    width: 0px;
-    transition: width 0.8s;
-}
-.target_btn {
-	width: 100%;
-	margin-top: 0px;
-	max-width: 640px;
-	margin: 0 auto;
-	height: 58px;
-}
-.target_btn a {
-	display: block;
-	position: fixed;
-	bottom: 0px;
-	text-align: center;
-	padding: 12px 0px;
-	font-size: 16px;
-	color: #ffffff;
-	background: #b7761c;
-	width: 100%;
-	letter-spacing: 1px;
-	max-width: 640px;
-	color: #fff !important;
-}
+@import '../../static/debt.css';
 </style>
 

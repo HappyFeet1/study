@@ -15,7 +15,7 @@
         </div>
     
         <ul class="msg-list" v-infinite-scroll="asyncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
-            <li v-for="(el, index) in loadData" :class="{'new-dot':el.readStatus==1}" @click="markReaded(el.id, index)">
+            <li v-for="(el, index) in loadData" :class="{'new-dot':el.readStatus==1}" @click="markReaded(el.id, index)" :key="index">
                 <div class="content">
                     <div>
                         <h3>{{el.title}}</h3>
@@ -99,7 +99,7 @@ export default {
                 })
                 .catch(e => {
                    this.$router.push({path:'/login'});
-                })
+                });
         },
         replaceBlank(str) {
             return str.replace(/[\r|\n|\r\n]+/g, "<br/>").replace(/[\s]+/g, function (arr) {

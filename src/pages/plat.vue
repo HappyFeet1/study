@@ -174,9 +174,9 @@ export default {
     },
     beforeMount() {
         this.$axios.get('/api/overviewDetails.do')
-            .then(res => {
-                this.loanData = res.data.data.loanData;
-                this.p2pData = res.data.data.p2pData;
+            .then(data => {
+                this.loanData = data.data.loanData;
+                this.p2pData = data.data.p2pData;
             })
     }
 }

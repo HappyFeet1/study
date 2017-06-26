@@ -30,7 +30,7 @@
         </div>
         <div :class="{'targets-list':selected==1,'transfer-list':selected==2}" v-infinite-scroll="asyncData" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
             <div v-for="el in loadData">
-            <router-link class="item" :to="{path:'/debtList/debtDetail',query:{'id':el.businessNo}}" v-if="selected==1">
+            <router-link class="item" :to="{path:'/debtList/debtDetail',query:{businessNo:el.businessNo}}" v-if="selected==1">
                 <dl>
                     <dt>{{el.loanTitle}}</dt>
                     <dd>借款金额： {{el.borrowAmount}}元</dd>
@@ -217,18 +217,7 @@ border-color:#D7980B transparent transparent;}
 .targets-list .svg{display:block;margin:10px auto 5px;height:60px;position:relative;}
 .targets-list svg{position:absolute;right:10px;font-size:12px;}
 
-.page-infinite-loading {
-    text-align: center;
-    height: 50px;
-    line-height: 50px;
-    background-color: #fff;
-}
 
-.page-infinite-loading div {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
-}
 
 /*债权转让区*/
 .transfer-list{margin-top: 10px;}

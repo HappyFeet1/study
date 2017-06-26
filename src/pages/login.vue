@@ -51,15 +51,15 @@ export default {
                     code: this.code
                 }).then(data => {
                     if (data.result === 0) {
-                        this.toast(data.msg);
+                        this.$toast(data.msg);
                         this.$router.back();
                     } else if (data.result === 2) {
-                        this.toast(this.needcode ? data.msg : '请输入验证码');
+                        this.$toast(this.needcode ? data.msg : '请输入验证码');
                         this.needcode = true;
                     } else if (data.result === 3) {
-                        this.toast(data.msg);
+                        this.$toast(data.msg);
                     } else {
-                        this.toast(data.msg || '登录失败');
+                        this.$toast(data.msg || '登录失败');
                     }
                 });
             }
@@ -71,7 +71,7 @@ export default {
         checkUseName() {
             let check = (this.userName).replace(/\s/g, '').replace(/[\u4e00-\u9fa5]/g, '**').length > 3;
             if (!check) {
-                this.toast('用户名格式错误！');
+                this.$toast('用户名格式错误！');
             }
             this.userNameState = check ? 'success' : 'error';
             return check;
@@ -79,7 +79,7 @@ export default {
         checkPsw() {
             let check = (this.password).replace(/\s/g, '').replace(/[\u4e00-\u9fa5]/g, '**').length > 3;
             if (!check) {
-                this.toast('密码格式错误！');
+                this.$toast('密码格式错误！');
                 this.passwordState = check ? 'success' : 'error';
             }
             return check;

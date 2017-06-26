@@ -14,14 +14,14 @@ import 'mint-ui/lib/header/style.css';
 import Button from 'mint-ui/lib/button/';
 import 'mint-ui/lib/button/style.css';
 
-import Toast from 'mint-ui/lib/toast/';
-import 'mint-ui/lib/toast/style.css';
+// import Toast from 'mint-ui/lib/toast/';
+// import 'mint-ui/lib/toast/style.css';
 
 
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 
-Vue.toast = Vue.prototype.toast = Toast;
+// Vue.toast = Vue.prototype.toast = Toast;
 
 
 export default {
