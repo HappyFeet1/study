@@ -163,6 +163,7 @@ export default {
             });
         },
         syncDate: function () {
+            this.$indicator.open();
             this.$axios.get('/api/mineAccount.do')
                 .then(res => {
                     if (res.code === -10000) {
@@ -179,9 +180,11 @@ export default {
                     this.data.chinaPNRBalance = data.chinaPNRBalance;
                     this.data.redeemData = data.redeemData || {};
                     this.data.income = data.income;
+                    this.$indicator.close();
                 })
                 .catch(e => {
                     this.$router.push({ path: '/login' });
+                    this.$indicator.close();
                 })
         },
         recharge() {
@@ -206,6 +209,7 @@ export default {
         this.syncDate();
     },
     mounted() {
+        this.$utils.setAppTitle('我的账户');
         if (this.data.income > 0) {
             this.$modal({
                 title: '温馨提示',

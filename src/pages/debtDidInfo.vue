@@ -59,8 +59,6 @@ export default {
             this.loading = true;
             this.$axios.get('/loan/loanInvestList.do', { params: this.params })
                 .then(res => {
-                    console.log(1111111111)
-                    console.log(res)
                     setTimeout(() => {
                         var data = res.list;
                         if (this.params.pageNo === 1 && !data.length) {

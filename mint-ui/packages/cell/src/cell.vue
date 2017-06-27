@@ -68,7 +68,9 @@ export default {
 
   computed: {
     href() {
-      if (this.to && !this.added && this.$router) {
+      if (this.to&&this.to.substring && this.to.substring(0, 4) == 'http') {
+        return this.to;
+      } else if (this.to && !this.added && this.$router) {
         const resolved = this.$router.match(this.to);
         if (!resolved.matched.length) return this.to;
 
@@ -77,11 +79,11 @@ export default {
           this.$el.addEventListener('click', this.handleClick);
         });
         return resolved;
-      }else{
+      } else {
         this.$nextTick(() => {
-            this.$el.addEventListener('click', ()=>{
-              this.click&&this.click();
-            });
+          this.$el.addEventListener('click', () => {
+            this.click && this.click();
+          });
         });
         return this.to;
       }
@@ -92,134 +94,115 @@ export default {
     handleClick($event) {
       $event.preventDefault();
       this.$router.push(this.href);
-      this.click&&this.click();
+      this.click && this.click();
     }
   }
 };
 </script>
 
 <style lang="css">
-  @import "../../../src/style/var.css";
-
-  @component-namespace mint {
-    @component cell {
-      background-color: $color-white;
-      box-sizing: border-box;
-      color: inherit;
-      min-height: 48px;
-      display: block;
-      overflow: hidden;
-      position: relative;
-      text-decoration: none;
-      
-
-      &:first-child {
-        border-top: 1px solid #eee;
-        .mint-cell-wrapper {
-          background-origin: border-box;
-        }
-      }
-
-      &:last-child {
-        background-image: linear-gradient(0deg, $color-grey, $color-grey 50%, transparent 50%);
-        background-size: 100% 1px;
-        background-repeat: no-repeat;
-        background-position: bottom;
-        border-bottom: 1px solid #eee;
-        .mint-cell-wrapper{
-          border-bottom:none;
-        }
-      }
-
-      @descendent wrapper {
-        background-image:linear-gradient(180deg, $color-grey, $color-grey 50%, transparent 50%);
-        background-size: 120% 1px;
-        background-repeat: no-repeat;
-        background-position: top left;
-        background-origin: content-box;
-        align-items: center;
-        box-sizing: border-box;
-        display: flex;
-        font-size: 16px;
-        line-height: 1;
-        min-height: inherit;
-        overflow: hidden;
-        margin-left: 10px;
-        padding-right: 10px;
-        border-bottom: 1px solid #eee;
-        flex:1;
-      }
-
-      @descendent mask {
-        &::after {
-          background-color: #000;
-          content: " ";
-          opacity: 0;
-          position: absolute 0;
-          pointer-events:none;
-        }
-
-        
-      }
-      &:active .mint-cell-mask::after {
-          opacity: .1;
-      }
-
-      @descendent text {
-        vertical-align: middle;
-      }
-
-      @descendent label {
-        color: #888;
-        display: block;
-        font-size: 12px;
-        margin-top: 6px;
-      }
-
-      img {
-        vertical-align: middle;
-      }
-
-      @descendent title {
-        flex: 1;
-        align-items: center;
-        display: flex;
-      }
-
-      @descendent value {
-        color: $cell-value-color;
-        display: flex;
-        align-items: center;
-
-        @when link {
-          margin-right: 24px;
-        }
-      }
-
-      @descendent left {
-        position: absolute;
-        height: 100%;
-        left: 0;
-        transform: translate3d(-100%, 0, 0);
-      }
-
-      @descendent right {
-        position: absolute;
-        height: 100%;
-        right: 0;
-        top: 0;
-        transform: translate3d(100%, 0, 0);
-      }
-
-      @descendent allow-right::after {
-        border: solid 2px $border-color;
-        border-bottom-width: 0;
-        border-left-width: 0;
-        content: " ";
-        position: absolute 50% 20px * *;
-        size: 5px;
-        transform: translateY(-50%) rotate(45deg);
+@import "../../../src/style/var.css";
+@component-namespace mint {
+  @component cell {
+    background-color: $color-white;
+    box-sizing: border-box;
+    color: inherit;
+    min-height: 48px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    &:first-child {
+      border-top: 1px solid #eee;
+      .mint-cell-wrapper {
+        background-origin: border-box;
       }
     }
+    &:last-child {
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      border-bottom: 1px solid #eee;
+      .mint-cell-wrapper {
+        border-bottom: none;
+      }
+    }
+    @descendent wrapper {
+      background-size: 120% 1px;
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-origin: content-box;
+      align-items: center;
+      box-sizing: border-box;
+      display: flex;
+      font-size: 16px;
+      line-height: 1;
+      min-height: inherit;
+      overflow: hidden;
+      margin-left: 10px;
+      padding-right: 10px;
+      border-bottom: 1px solid #eee;
+      flex: 1;
+    }
+    @descendent mask {
+      &::after {
+        background-color: #000;
+        content: " ";
+        opacity: 0;
+        position: absolute 0;
+        pointer-events: none;
+      }
+    }
+    &:active .mint-cell-mask::after {
+      opacity: .1;
+    }
+    @descendent text {
+      vertical-align: middle;
+    }
+    @descendent label {
+      color: #888;
+      display: block;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    img {
+      vertical-align: middle;
+    }
+    @descendent title {
+      flex: 1;
+      align-items: center;
+      display: flex;
+    }
+    @descendent value {
+      color: $cell-value-color;
+      display: flex;
+      align-items: center;
+      @when link {
+        margin-right: 24px;
+      }
+    }
+    @descendent left {
+      position: absolute;
+      height: 100%;
+      left: 0;
+      transform: translate3d(-100%, 0, 0);
+    }
+    @descendent right {
+      position: absolute;
+      height: 100%;
+      right: 0;
+      top: 0;
+      transform: translate3d(100%, 0, 0);
+    }
+    @descendent allow-right::after {
+      border: solid 2px $border-color;
+      border-bottom-width: 0;
+      border-left-width: 0;
+      content: " ";
+      position: absolute 50% 20px * *;
+      size: 5px;
+      transform: translateY(-50%) rotate(45deg);
+    }
   }
+}
 </style>

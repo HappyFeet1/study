@@ -77,19 +77,16 @@
                     <span>{{info.balanceAmount|formatNumber}}元</span>
                     <a :href="rechargeUrl">充值</a>
                 </div>
-                <!-- <div class="buy_text">请输入您要投资的金额</div> -->
                 <div class="buy_input">
                     <input type="text" placeholder="输入的金额须为100的倍数" v-model="amount">元
                 </div>
                 <div class="buy_note" style="padding:5px 0 10px;">*只能使用平台余额购买</div>
-                <!-- <div class="buy_text">请输入您收到的短信验证码</div> -->
                 <div class="buy_code">
                     <input type="text" v-model="identifyCode" placeholder="请输入手机收到的验证码">
                     <span class="getCode" :class="{disabled:countTime!==120}" @click="getIdentifyCode()">{{countTime==120?'免费获取':countTime+'秒'}}</span>
                 </div>
                 <p class="buy_note" style="font-size:12px;padding:15px 0 0;">*提醒：为保障您合法的权益我们将发送验证码，输入验证码表明您本人已同意签署《信息调用授权委托书》</p>
     
-                <!-- <div class="buy_note buy_note2">您输入的验证码错误，请重新输入</div>		 -->
                 <div @click="toggleCheck()" class="buy_protol" :class="{'buy_protol_checked':checked}">我已阅读并同意
                     <span>丨《
                         <a href="http://m.hehenian.com/finance/authorize.do">信息调用授权委托书</a>》</span>
@@ -98,7 +95,7 @@
     
         </div>
         <div class="target_btn" ref="fixBtn" v-show="info.borrowStatus==1">
-            <a href="javascript:;">确定投标</a>
+            <a @click="buyBtn()" href="javascript:;">确定投标</a>
         </div>
     </div>
 </template>
@@ -154,7 +151,7 @@ export default {
         },
         getIdentifyCode(){
             verifyPay(()=>{
-                this.countDown();
+                this.countTime=119;
                 this.$axios.post('/common/sendPhoneVirifyCode.do')
                 .then(res=>{
                     if (res.ret == 1) {
@@ -201,7 +198,7 @@ export default {
                 this.$toast('请输入短信验证码');
                 return;
             }
-            if (this.identifyCode < 4) {
+            if (this.identifyCode.length < 4) {
                 this.$toast('短信验证码错误');
                 return;
             }
@@ -210,8 +207,8 @@ export default {
                 return;
             }
 
-            this.verifyPay(()=>{
-                this.payPassword(psw=>{
+            verifyPay(()=>{
+                payPassword(psw=>{
                     this.psw = psw;
                     this.payOrder();
                 });

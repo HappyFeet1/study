@@ -107,7 +107,7 @@ export default {
                     });
                 });
             } else if (this.isWeiXin) {
-               this.$axios.get('/activity/getWeiXinInfo.do',{params:{url: location.href}})
+               this.$axios.get('/activity/getWeiXinInfo.do',{params:{url: encodeURIComponent(location.href)}})
                 .then(data=>{
                     if (data.code === 0) {
                         data = data.data;

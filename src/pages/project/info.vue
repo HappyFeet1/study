@@ -105,17 +105,23 @@ export default {
             data: {}
         }
     },
-    // computed: {
-    //     map:1
-    // },
     methods: {
         aysnData() {
-            this.$axios.get('/api/getProjectBasicInfo.do', { params: { id: this.$route.params.id } })
+            this.$indicator.open();
+            let channel     = this.$route.query.channel,
+                sub_channel = this.$route.query.sub_channel,
+                period      = this.$route.query.period,
+                id          = this.$route.query.id,
+                params      = id !== undefined ? { id: id} : {channel,sub_channel,period};
+
+            this.$axios.get('/api/getProjectBasicInfo.do', { params })
                 .then(res => {
                     this.data = res.data;
                     localStorage.setItem('$$projectBaseInfo', JSON.stringify(res.data));
+                    this.$indicator.close();
                 })
                 .catch(e => {
+                    this.$indicator.close();
                     $.toast('服务器出错！');
                 })
         }

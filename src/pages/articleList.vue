@@ -22,7 +22,7 @@
                     </div>
                 </router-link>
             </div>
-            <div class="wrapper-pannel" v-for="el in luxury">
+            <div class="luxury-pannel" v-for="el in luxury">
                     <div class="img-play">
                         <router-link class="max" :to="{path:'/articleDetail',query:{id:el.max.id}}">
                             <img :src="el.max.coverImage" width="100%">
@@ -63,7 +63,7 @@ import 'mint-ui/lib/spinner/style.css';
 export default {
     data(){
         return {
-            typeId: 5,
+            typeId: this.$route.query.typeId || 5,
             loadData:[],
             loading: false,
             pageNo:1,
@@ -157,5 +157,5 @@ export default {
 .img-play .min>a:active{background-color:#f2f2f2;}
 .img-play .min .img{display:inline-block;width:80px;height:80px;-webkit-background-size:cover;background-size:cover;background-position:50% 50%;border:1px solid #eee;}
 .img-play .min p{padding-top:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:80px;display:inline-block;}
-.wrapper-pannel{border-bottom: 10px solid #F2F2F2;}
+.luxury-pannel{margin-top: 0;border-bottom: 10px solid #F2F2F2;}
 </style>

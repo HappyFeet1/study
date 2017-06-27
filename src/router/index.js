@@ -26,6 +26,8 @@ let router = new Router({
     { path: '/message', component: resolve => require(['@/pages/message'], resolve) },
     { path: '/setting', component: resolve => require(['@/pages/setting'], resolve) },
     { path: '/plat', component: resolve => require(['@/pages/plat'], resolve) },
+    { path: '/riskTest', component: resolve => require(['@/pages/riskTest'], resolve) },
+    { path: '/balance', component: resolve => require(['@/pages/balance'], resolve) },
 
     { path: '/debtList', component: resolve => require(['@/pages/debtList'], resolve) },
     { path: '/debtList/debtDetail', component: resolve => require(['@/pages/debtDetail'], resolve) },

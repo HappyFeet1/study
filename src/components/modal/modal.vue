@@ -145,7 +145,7 @@ export default {
 }
 
 .iModal-btns .ok {
-    color: #26A2FF;
+    color: #CD9245;
 }
 
 .iModal-btns button:active {

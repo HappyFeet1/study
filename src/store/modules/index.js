@@ -1,4 +1,5 @@
 import axios from 'axios';
+import vue from 'vue';
 export default {
     namespaced: true,
     state: {
@@ -23,13 +24,14 @@ export default {
         }
     },
     actions: { //可以异步
-        syncDate: function ({ commit }) {
+        asyncDate: function ({ commit }) {
             axios.get('/api/appHomePage.do')
                 .then(data => {
                     commit('setDate', data.data);
+                    vue.$indicator.close();
                 })
                 .catch(e => {
-                    console.log(e)
+                    vue.$indicator.close();
                 })
         }
     }

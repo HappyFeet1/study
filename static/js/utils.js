@@ -83,6 +83,14 @@ utils.connectWebViewJavascriptBridge = function (callback) {
 utils.connectWebViewJavascriptBridge(function (bridge) {
     bridge.init(function (message, responseCallback) { });
 });
+utils.setAppTitle = function(title){
+    document.title = title;
+    utils.connectWebViewJavascriptBridge(function(bridge) {
+        bridge.callHandler('setAppTitle', {
+            title: title
+        }, function(responseData) {});
+    });
+};
 utils.each = function (obj, fn, args) {
     if (args) {
         if (obj.length == undefined) {

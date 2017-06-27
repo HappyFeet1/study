@@ -18,6 +18,8 @@ a,a:visited{-webkit-touch-callout:none;text-decoration:none;outline:0;color:#333
 .cGray,.cGray:visited{color:#aaa}
 em,i{font-style:normal;}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.isApp .mint-header,
+.isWeiXin .mint-header{display: none!important;}
 .icon{background-image:url(http://static.hehenian.com/m/v4/images/icons.png);
     -webkit-background-size:100px auto;background-size:100px auto;background-repeat:no-repeat;display: inline-block;}
     .index-container{background: #eee;padding-bottom: 65px;}

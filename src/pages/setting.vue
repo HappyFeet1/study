@@ -6,15 +6,15 @@
             </a>
         </mt-header>
         <div class="cell-container">
-            <mt-cell title="个人信息" to="//m.hehenian.com/profile/userinfo.do?flag=auth" is-link>
+            <mt-cell title="个人信息" to="http://m.hehenian.com/profile/userinfo.do?flag=auth" is-link>
             </mt-cell>
-            <mt-cell title="银行卡管理" to="//m.hehenian.com/profile/managerCard.do" is-link>
+            <mt-cell title="银行卡管理" to="http://m.hehenian.com/profile/managerCard.do" is-link>
             </mt-cell>
             <mt-cell title="修改手机号码" is-link :click="updateMobile">
             </mt-cell>
-            <mt-cell title="修改登录密码" to="//m.hehenian.com/account/resetPwdIndex.do?pwdFlag=login" is-link>
+            <mt-cell title="修改登录密码" to="http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=login" is-link>
             </mt-cell>
-            <mt-cell title="修改交易密码" to="//m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay" is-link>
+            <mt-cell title="修改交易密码" to="http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay" is-link>
             </mt-cell>
             <mt-cell title="第三方登录" v-if="isWeiXin" :click="bindWxAccount" is-link>
                 <img src="http://static.hehenian.com/m/v2/images/wx_icon.png?v=17e58ad" width="32" height="32" style="margin-right:10px;" >
@@ -40,8 +40,8 @@
 <script>
 import { mapState } from 'vuex';
 import Cell from 'mint-ui/lib/cell/';
-import 'mint-ui/lib/cell/style.css';
 import verifySafe from '@/common/verifyUpdateMobile';
+import 'mint-ui/lib/cell/style.css';
 export default {
     data() {
         return {

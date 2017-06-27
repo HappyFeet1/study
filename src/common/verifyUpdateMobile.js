@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function (callback, router) {
     axios.post('/profile/isChinapnrUser.do')
         .then(res => {
-            let result = res.data.result;
+            let result = res.result;
             if (result == 3) {
                 $modal({
                     title: '温馨提示',

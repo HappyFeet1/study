@@ -6,12 +6,12 @@
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import { mapState, mapMutations } from 'vuex';
-import Header from 'mint-ui/lib/header/';
-import 'mint-ui/lib/header/style.css';
+import Vue    from      'vue';
+import {      mapState, mapMutations } from 'vuex';
+import Header from      'mint-ui/lib/header/';
+import Button from      'mint-ui/lib/button/';
 
-import Button from 'mint-ui/lib/button/';
+import 'mint-ui/lib/header/style.css';
 import 'mint-ui/lib/button/style.css';
 
 // import Toast from 'mint-ui/lib/toast/';
@@ -34,8 +34,12 @@ export default {
     ])
   },
   mounted() {
-    // console.log(this.$route)
-
+    const state = this.$store.state;
+    if(state.isApp){
+       document.body.classList.add('isApp')
+    }else if(state.isWeiXin){
+       document.body.classList.add('isWeiXin');
+    }
   }
 }
 </script>
@@ -67,29 +71,40 @@ body,
 .fade-leave-active {
   transition: opacity .4s ease;
 }
+
 /*路由前进，退出*/
-.slide-left-leave-active{
+
+.slide-left-leave-active {
   animation: pageFromCenterToLeft 400ms forwards;
   z-index: 1;
 }
+
 /*路由后退，进入*/
-.slide-right-enter-active{
+
+.slide-right-enter-active {
   animation: pageFromLeftToCenter 400ms forwards;
   z-index: 1;
 }
+
 /*路由后退，退出*/
-.slide-right-leave-active{
+
+.slide-right-leave-active {
   animation: pageFromCenterToRight 400ms forwards;
   z-index: 10;
 }
+
 /*路由前进，进入*/
-.slide-left-enter-active{
+
+.slide-left-enter-active {
   animation: pageFromRightToCenter 400ms forwards;
   z-index: 10;
 }
 
 /*-------------------------------*/
+
+
 /*路由前进，进入*/
+
 @keyframes pageFromRightToCenter {
   from {
     transform: translate3d(100%, 0, 0);
@@ -100,7 +115,9 @@ body,
     opacity: 1;
   }
 }
+
 /*路由前进，退出*/
+
 @keyframes pageFromCenterToLeft {
   from {
     opacity: 1;
@@ -111,7 +128,9 @@ body,
     transform: translate3d(-20%, 0, 0);
   }
 }
+
 /*路由后退，进入*/
+
 @keyframes pageFromLeftToCenter {
   from {
     opacity: .5;
@@ -122,7 +141,9 @@ body,
     transform: translate3d(0, 0, 0);
   }
 }
+
 /*路由后退，退出*/
+
 @keyframes pageFromCenterToRight {
   from {
     transform: translate3d(0, 0, 0);

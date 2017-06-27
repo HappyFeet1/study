@@ -37,6 +37,7 @@
                 <a @click="gotoInfo(item)">
                     <div class="product_title" :class="{'product_title_aft':item.status!=1}">
                         <span class="debt_text">{{item.productName+item.period+'期'}}</span>
+                        <img v-if="item.rateId == 53" src="http://static.hehenian.com/m/v4/images/sj.png">
                         <span class="debt_num">已投:
                             <i class="debt_org">{{item.tradeCount}}</i>笔
                         </span>
@@ -47,9 +48,11 @@
                     <div class="product_inner">
                         <div class="inner_item">
                             <div class="inner_rate">
-                                <p>{{item.rate*100|fixed2}}
+                                <p v-if="item.rateId != 53">
+                                    {{item.rate*100|fixed2}}
                                     <i>%</i>
                                 </p>
+                                <p v-else>5<i>%</i>+1<i>%</i></p>
                                 <p>预期年化收益率</p>
                             </div>
                             <div class="inner_rate inner_rate2">
@@ -145,10 +148,10 @@ export default {
             sortOrder: 'desc',
             filterRequest: {
                 pageSize: 5,
-                sortName: this.sortName,
+                sortName: this.sortName || 'createTime',
                 status: this.statusValue || '',
                 period: this.timeValue || '',
-                sortOrder: this.sortOrder,
+                sortOrder: this.sortOrder || 'desc',
                 pageNo: 1
             }
         }
@@ -564,5 +567,56 @@ export default {
     display: inline-block;
     vertical-align: middle;
     margin-right: 5px;
+}
+
+@media (max-width: 370px) {
+  .filter_item {
+  	padding-top:12px;
+  	padding-bottom: 12px;
+  }
+  .filter_bd a,.filter_item {
+    font-size: 13px;
+  }
+  .inner_item {
+  	overflow: hidden;
+  }
+  .inner_item .inner_info {
+    -webkit-box-flex: 2;
+    -webkit-flex: 2;
+    flex: 2;
+    text-align: center;  
+    font-size: 13px;
+    margin-left: 0px;	
+  }
+  .filter_bd a i:before {
+    top: -3px !important;
+  }
+  .inner_rate.inner_rate2 {
+  	
+  	font-size: 26px;
+  }
+  .filter_bd a {
+    font-size: 12px !important;
+  } 
+  .debt_num {
+    display: none;
+  }
+  .debt_money {
+    margin-right:25px;
+  }
+  .inner_rate p:first-child {
+  	font-size: 24px;
+  }
+  .inner_process {
+  	padding-right: 5px;
+  }
+  .filter_bd a i {
+  	right: 0px;
+  }
+  .debt_text {
+  	font-size: 13px;
+  	position: relative;
+  	top: -1px;
+  }
 }
 </style>

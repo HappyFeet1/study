@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import vue from  'vue';
 /**
  * mt-header
  * @module components/header
@@ -34,6 +35,17 @@ export default {
   props: {
     fixed: Boolean,
     title: String
+  },
+  methods:{
+    setTitle(){
+       if(this.title)vue.$utils.setAppTitle(this.title);
+    }
+  },
+  created(){
+    this.setTitle();
+  },
+  updated(){
+    this.setTitle();
   }
 };
 </script>

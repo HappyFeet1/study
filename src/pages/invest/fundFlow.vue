@@ -59,7 +59,7 @@
 </template>
 <script>
 import InfiniteScroll from 'mint-ui/lib/infinite-scroll/';
-import Spinner from 'mint-ui/lib/spinner/';
+import Spinner        from 'mint-ui/lib/spinner/';
 import 'mint-ui/lib/spinner/style.css';
 export default {
     data: function () {

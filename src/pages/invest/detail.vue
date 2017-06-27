@@ -221,9 +221,9 @@ export default {
 
         document.getElementById('statusTarget').addEventListener('click', (e)=>{
                 if(this.className=='j-changeAutoPurchase'){
-                    let target = e.srcElement;
+                    let target  = e.srcElement;
                     let tradeId = target.tradeId,
-                    status = parseInt(target.status) == 1 ? 2 : 1; 
+                    status      = parseInt(target.status) == 1 ? 2 : 1; 
                     this.changeAutoPurchase(tradeId, status, target);
                 }
         });

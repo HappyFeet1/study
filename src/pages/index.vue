@@ -11,7 +11,7 @@
       </mt-swipe-item>
     </mt-swipe>
 
-    <div class="imenu-list">
+    <!--<div class="imenu-list">
         <div class="item">
             <a :href="filterUrl(item.url)" v-for="item in data.menus1">
                 <i :class="'icon '+filterIcon(item.img)"></i>
@@ -30,7 +30,54 @@
                 <p>{{item.desc}}</p>
             </a>
         </div>
+    </div>-->
+
+    
+    <div class="imenu-list">
+        <div class="item">
+            <router-link :to="{path:'/project/info',query:{channel:0,sub_channel:0,period:12}}">
+                <i class="icon icon-steady"></i>
+                <p>爱定宝</p>
+            </router-link>
+            <router-link :to="{path:'/project/info',query:{channel:0,sub_channel:2,period:1}}">
+                <i class="icon icon-month"></i>
+                <p>月利宝</p>
+            </router-link>
+            <router-link to="/project">
+                <i class="icon icon-more"></i>
+                <p>更多</p>
+            </router-link>
+        </div>
+        <div class="item">
+            <router-link to="/riskTest">
+                <i class="icon icon-risk"></i>
+                <p>风险评估</p>
+            </router-link>
+            <router-link :to="{path:'articleList',query:{typeId:6}}">
+                <i class="icon icon-reading"></i>
+                <p>深阅读</p>
+            </router-link>
+            <router-link :to="{path:'articleList',query:{typeId:11}}">
+                <i class="icon icon-luxury"></i>
+                <p>轻奢品</p>
+            </router-link>
+        </div>
+        <div class="item">
+            <router-link to="/balance">
+                <i class="icon icon-balance"></i>
+                <p>账户余额</p>
+            </router-link>
+            <router-link :to="{path:'overview',query:{key:'asset'}}">
+                <i class="icon icon-assets"></i>
+                <p>我的资产</p>
+            </router-link>
+            <a href="http://m.hehenian.com/page/h5/profile/bill_list.html">
+                <i class="icon icon-bill"></i>
+                <p>账单查询</p>
+            </a>
+        </div>
     </div>
+
 
     <div class="wrapper-pannel" v-if="data.overview">
         <div class="title-bar">{{data.overview.nav}}<router-link :to="{path:'/plat'}" class="more">更多</router-link></div>
@@ -144,8 +191,10 @@ export default {
       }
     },
     beforeCreate() {
+        this.$utils.setAppTitle('钱生花');
         this.$store.registerModule('IndexModule', IndexModule);
-        this.$store.dispatch('IndexModule/syncDate');
+        this.$indicator.open();
+        this.$store.dispatch('IndexModule/asyncDate');
         this.$parent.selected = 'index';
     },
     destroyed () {

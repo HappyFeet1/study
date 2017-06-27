@@ -2,8 +2,8 @@
     <div class="mine">
         <div class="info-pannel">
             <a class="link" href="javascript:history.go(-1);">返回</a>
-            <h2 class="title">我的账户</h2>
-            <a class="total" href="javascript:;" @click="syncDate('asset')">
+            <h2 class="title">我的投资</h2>
+            <a class="total" href="javascript:;" @click="asyncDate('asset')">
                 <h3>我的总资产(元)
                     <i class="icon icon-eye" :class="{'icon-eye-close':hide=='****'}" @click.stop.prevent="toggleHide()"></i>
                 </h3>
@@ -12,14 +12,14 @@
             <ul class="sub-list">
                 <li>
                     <h3>
-                        <a @click="syncDate('total')" href="javascript:;">累计收益(元)</a>
+                        <a @click="asyncDate('total')" href="javascript:;">累计收益(元)</a>
                         <i @click="incomeDialog('totalIncomeDialog')" class="icon icon-help"></i>
                     </h3>
                     <p>{{hide||formatNumber(data.totalInteres)}}</p>
                 </li>
                 <li>
                     <h3>
-                        <a @click="syncDate('yesterday')" href="javascript:;">昨日收益(元)</a>
+                        <a @click="asyncDate('yesterday')" href="javascript:;">昨日收益(元)</a>
                         <i @click="incomeDialog('yesterdayIncomeDialog')" class="icon icon-help"></i>
                     </h3>
                     <p>{{hide||formatNumber(data.yesterdayInteres)}}</p>
@@ -128,10 +128,11 @@ export default {
                 return value + 30 < 50 ? value + 30 : value;
             }
         },
-        syncDate: function (key) {
+        asyncDate: function (key) {
             key = key || this.$route.query.key || 'asset';
             if (this.key === key) return;
             this.list = [];
+            this.$indicator.open();
             this.$axios.post('/api/overview.do', { key: key })
                 .then(res => {
                     if (res.code === -10000) {
@@ -151,11 +152,13 @@ export default {
                     this.list = list;
                     this.listLength = list.length;
                     this.key = key;
+                    this.$indicator.close();
                 })
                 .catch(e => {
                     setTimeout(() => {
                         this.$router.push({ path: '/login' })
                     }, 0)
+                    this.$indicator.close();
                 })
         },
         gotoDetail(index) {
@@ -183,9 +186,8 @@ export default {
         }
     },
     beforeMount() {
-        this.syncDate();
-    },
-    mounted() {
+        this.$utils.setAppTitle('我的投资');
+        this.asyncDate();
     }
 }
 </script>

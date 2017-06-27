@@ -54,13 +54,13 @@
                     <li>
                         <label>风险提示：</label>
                         <div class="text">
-                            <router-link to="/helper/list/debtSafe" class="link">详情参见钱生花风险提示</router-link>
+                            <router-link to="/help/debtSafe" class="link">详情参见钱生花风险提示</router-link>
                         </div>
                     </li>
                     <li>
                         <label>安全保障：</label>
                         <div class="text">
-                            <router-link to="/helper/list/3safe" class="link">详情参见钱生花安全保障</router-link>
+                            <router-link to="/help/3safe" class="link">详情参见钱生花安全保障</router-link>
                         </div>
                     </li>
                 </ul>
