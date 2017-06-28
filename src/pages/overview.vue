@@ -35,7 +35,7 @@
                         {{el.label}}
                     </span>
                     <span class="money">
-                        {{formatNumber(el.value)}}
+                        {{hide?hide:formatNumber(el.value)}}
                     </span>
                     <div class="level" :style="{'width':getLevelWidth(el.value,index)+'%'}">
                         <div class="line" :style="{'background':getLevelColor(index),'animation-duration':(1+index*.5)+'s'}"></div>

@@ -101,7 +101,7 @@
     </div>
 
     <div class="wrapper-pannel" v-if="data.underlying">
-        <div class="title-bar">{{data.underlying.nav}} <router-link :to="{path:'/debtList'}" class="more">更多</router-link></div>
+        <div class="title-bar">{{data.underlying.nav}} <router-link :to="{path:'/debt'}" class="more">更多</router-link></div>
         <div class="targets" v-for="el in data.underlying.content">
             <a class="name" :href="filterUrl(el.link)">
                 <h3>{{el.title}}</h3>

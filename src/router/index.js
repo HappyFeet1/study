@@ -29,14 +29,18 @@ let router = new Router({
     { path: '/riskTest', component: resolve => require(['@/pages/riskTest'], resolve) },
     { path: '/balance', component: resolve => require(['@/pages/balance'], resolve) },
 
-    { path: '/debtList', component: resolve => require(['@/pages/debtList'], resolve) },
-    { path: '/debtList/debtDetail', component: resolve => require(['@/pages/debtDetail'], resolve) },
-    { path: '/debtList/borrowInfo', component: resolve => require(['@/pages/debtBorrowInfo'], resolve) },
-    { path: '/debtList/verifyInfo', component: resolve => require(['@/pages/debtVerifyInfo'], resolve) },
-    { path: '/debtList/bidInfo', component: resolve => require(['@/pages/debtDidInfo'], resolve) },
-    { path: '/debtList/repaymentInfo', component: resolve => require(['@/pages/debtRepaymentInfo'], resolve) },
-    { path: '/debtList/debtHelp', component: resolve => require(['@/pages/debtHelp'], resolve) },
-    { path: '/debtList/debtBuy', component: resolve => require(['@/pages/debtBuy'], resolve) },
+    { path: '/debt', component: resolve => require(['@/pages/debt/list'], resolve) },
+    { path: '/debt/detail', component: resolve => require(['@/pages/debt/detail'], resolve) },
+    { path: '/debt/borrowInfo', component: resolve => require(['@/pages/debt/borrowInfo'], resolve) },
+    { path: '/debt/verifyInfo', component: resolve => require(['@/pages/debt/verifyInfo'], resolve) },
+    { path: '/debt/bidInfo', component: resolve => require(['@/pages/debt/didInfo'], resolve) },
+    { path: '/debt/repaymentInfo', component: resolve => require(['@/pages/debt/repaymentInfo'], resolve) },
+    { path: '/debt/help', component: resolve => require(['@/pages/debt/help'], resolve) },
+    { path: '/debt/buy', component: resolve => require(['@/pages/debt/buy'], resolve) },
+
+    { path: '/transfer/detail', component: resolve => require(['@/pages/transfer/detail'], resolve) },
+    { path: '/transfer/baseInfo', component: resolve => require(['@/pages/transfer/baseInfo'], resolve) },
+    
 
     { path: '/overview', component: resolve => require(['@/pages/overview'], resolve) },
 
