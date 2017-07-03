@@ -53,7 +53,8 @@ Vue.$indicator = Vue.prototype.$indicator = indicator;
 Vue.$utils     = Vue.prototype.$utils     = utils;
 
 Vue.config.productionTip = false;
-
+// 务必在加载 Vue 之后，立即同步设置以下内容
+Vue.config.devtools = true
 
 router.beforeEach((to, from, next) => {
   //定义一个可以记录路由路径变化的数据，这里用在vuex，其实也可以用sessionStorage,或者在window.routeChain等变量

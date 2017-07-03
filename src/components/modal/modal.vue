@@ -52,7 +52,7 @@ export default {
     },
     methods: {
         btnsEvent(callback) {
-            if (callback() !== false) {
+            if (callback.call(this) !== false) {
                 this.isShow = false;
             }
         },

@@ -40,7 +40,7 @@
 <script>
 import { mapState } from 'vuex';
 import Cell from 'mint-ui/lib/cell/';
-import verifySafe from '@/common/verifyUpdateMobile';
+import verifyUpdateMobile from '@/common/verifyUpdateMobile';
 import 'mint-ui/lib/cell/style.css';
 export default {
     data() {
@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         updateMobile(){
-            verifySafe(()=>{
+            verifyUpdateMobile(()=>{
                 this.$router.push({
                     path:'setting/mobileUpdate'
                 })

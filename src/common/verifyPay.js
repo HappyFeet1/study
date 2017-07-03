@@ -20,10 +20,10 @@ export default function (callback, redirectUrl) {
                     }
                 });
             } else if (data.returnCode == 6) {
-                //支付密码
+                //交易密码
                 $modal({
                     title: '重要提示',
-                    content: data.messageInfo || '您尚未设置支付密码，无法进行该操作。',
+                    content: data.messageInfo || '您尚未设置交易密码，无法进行该操作。',
                     okText: '立即设置',
                     cancelText: '取消',
                     ok: function () {

@@ -8,7 +8,7 @@
         <div class="top-tips" id="tips">请输入用户名或者手机号码</div>
         <div class="page-part">
             <mt-field label="用户名" v-model="userName" placeholder="用户名/手机号码" :state="userNameState" @click.native="userNameState=''"></mt-field>
-            <mt-field label="密　码" type="password" v-model="password" placeholder="请输入密码" :state="passwordState" @click.native="passwordState=''"></mt-field>
+            <mt-field label="密　码" type="password" v-model="password" placeholder="请输入密码" :state="passwordState" @click.native="passwordState=''" ref="psw"></mt-field>
             <mt-field label="验证码" v-model="code" v-if="needcode">
                 <img :src="'http://m.hehenian.com/common/imageCode.do?pageId=userlogin&_'+timestamp" height="45px" width="100px" @click="updateTime">
             </mt-field>
@@ -84,6 +84,13 @@ export default {
             }
             return check;
         }
+    },
+    mounted(){
+       this.$refs.psw.$refs.input.addEventListener('keydown',e=>{
+           if(13===e.keyCode){
+               this.login();
+           }
+       });
     },
     components: {
         'mt-field': Field

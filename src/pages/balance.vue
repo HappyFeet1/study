@@ -66,11 +66,19 @@ export default {
             });
         },
         withdraw() {
+            let that = this;
             if (parseFloat(this.view.balance) + parseFloat(this.view.chinaPNRBalance) > 0) {
                 this.$modal({
                     title: '请选择您要提现的金额账户',
-                    content: '<style>.withdrawals a{display:inline-block;padding:15px 30px;color: #DDAD58;}</style><p class="withdrawals"><a style="border-right:1px solid #ccc;" href="http://m.hehenian.com/chinapnr/webappCash.do">汇付账户</a><a href="javascript:chekp(\'http://m.hehenian.com/balance/withdrawPage.do\');">平台账户</a></p>',
+                    content: '<style>.withdrawals a{display:inline-block;padding:15px 30px;color: #DDAD58;}</style><p class="withdrawals"><a style="border-right:1px solid #ccc;" href="http://m.hehenian.com/chinapnr/webappCash.do">汇付账户</a><a id="platBtn" href="javascript:;">平台账户</a></p>',
                     cancelText: '取消',
+                    open:function(){
+                        document.getElementById('platBtn').onclick=function(){
+                            verifyPay(() => {
+                                location.href = 'http://m.hehenian.com/balance/withdrawPage.do';
+                            });
+                        }
+                    },
                     cancel: function () { }
                 });
             } else {

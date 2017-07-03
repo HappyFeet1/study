@@ -141,7 +141,7 @@
                                 <i :class="el.rank">{{el.rank}}</i>
                             </td>
                             <td>
-                                <router-link :to="{path:'/debtList/debtDetail',query:{businessNo:el.businessNum}}" class="cGold">查看详情</router-link>
+                                <router-link :to="{path:'/debt/detail',query:{businessNo:el.businessNum}}" class="cGold">查看详情</router-link>
                             </td>
                         </tr>
                     </table>

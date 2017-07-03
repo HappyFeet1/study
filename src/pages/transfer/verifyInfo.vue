@@ -9,13 +9,15 @@
             <p class="title">审核信息</p>
             <div class="pannel_table">
                 <table>
-                    <tbody>
+                    <thead>
                         <tr>
                             <th>审核项目</th>
                             <th>状态</th>
                             <th>认证时间</th>
                             <th>通过时间</th>
                         </tr>
+                    </thead>
+                    <tbody v-if="authList.length">
                         <tr v-for="el in authList">
                             <td>{{el.fileName}}</td>
                             <td>
@@ -24,6 +26,8 @@
                             <td>{{el.createData}}</td>
                             <td>{{el.createData}}</td>
                         </tr>
+                    </tbody>
+                    <tbody v-else>
                         <tr>
                             <td colspan="4" v-if="authList.length==0">查无记录</td>
                         </tr>

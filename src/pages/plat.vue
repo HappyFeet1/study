@@ -9,7 +9,7 @@
             <div class="overview_item">
                 <div class="overview_bar">
                     <span class="over_tit">运营统计数据</span>
-                    <i>(截止{{date|Date('yyyy-MM-dd')}})</i>
+                    <i>(截止{{date|date('yyyy-MM-dd')}})</i>
                 </div>
                 <ul>
                     <li class="o1">

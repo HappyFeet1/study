@@ -17,7 +17,7 @@ export default function (callback, router) {
             } else if (result == 2) {
                 $modal({
                     title: '温馨提示',
-                    content: '<p style="padding:1.5em 0;">请先设置 <a href="http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay" class="cRed">支付密码</a> 后，才可更改手机号！</p>',
+                    content: '<p style="padding:1.5em 0;">请先设置 <a href="http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay" class="cRed">交易密码</a> 后，才可更改手机号！</p>',
                     okText: '立即设置',
                     ok: function () {
                         location.href = "http://m.hehenian.com/account/resetPwdIndex.do?pwdFlag=pay";
